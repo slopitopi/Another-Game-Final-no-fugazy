@@ -1,0 +1,261 @@
+﻿02/01/26  -  13:03
+
+It migth be a little late to come tyothis conclusion but what i understand from the spaceshooter code that we wrote in class after looking at
+is is that none of the classes ever actually load anything. They just define the logic that will be used when the assets are loaded. The actual loading of the assets and spesifics are done is done in the main GameElements class.
+
+So im assuming thats what i should do, make classes that use each other and so ill make a small update and draw method for each of my GameStates in GameElements and then call the methods from there.
+And also a reste method because ive changed my mind about how the game will function.
+
+-------------The Game----------------
+First youll start off in the menu where you will have 4 options
+
+Play Game
+High Scores
+Intstuctions
+Quit
+
+- If you choose Play Game youll be taken to a battle screen where you will have to fight off waves of enemies. With cards or health that you can upgrade between waves. (Maybe add new unlockable cards if there is time)
+Every wave will get harder and harder until you die. Once you die it will show up an overlay that shows what youve accomplished.
+Then it will reset all your progress, save it to the HighScore and take you back to the main menu. Where you can restart and try to beat your high score.
+
+- If you choose High Scores youll be taken to a screen that shows your high scores.
+
+- If you choose Instructions youll be taken to a screen that shows you how to play the game. 
+
+- If you choose Quit the game will close.
+
+-------------The Game END----------------
+
+
+
+It will consist of the following GameStates:
+MenuState
+BattleState --> Play game button
+
+??LevelUpState --> (Still unsure if i should add this because it might cause problems with having to change things in the middle of the batlle still running)??
+
+HighScoreState--> High Scores button
+InstructionsState --> instructions button
+QuitState --> Quit button
+
+
+MenuState will handle the its buttons (Play, Highscore, Instructions, Quit) and its background.
+
+BattleState will handle the actual game logic and drawing of the game.
+
+=============================================================================================================================================
+BRAKE AT 13:37 || BACK AT 16:46
+=============================================================================================================================================
+
+Im going to make everything bit by bit. Today ill make the MenuState with its buttons and background.
+
+-------------17:02----------------
+I have come to a sligth stop because there is something i dont quite understand about why the gamestates are updated and drawn in Game1 instead of just in GameElements class which to me seems way more sensible.
+
+-?- My first assuption was that its because if i update them in the GameElements and then call the update method in Game1 like this 
+
+
+        protected override void Update(GameTime gameTime)
+        {
+            // Escape key exits the game
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            GameElements.Update[Whatever state](gameTime);
+
+            base.Update(gameTime);
+        }
+
+That it would be inneficient because its updating all the gamestates even if they are not active. But then i realized that i could just put that same swich case statment into GameElements something like this:
+
+            switch (GameState)
+            {
+                case Menu:
+                    Menu_UpdateGE(gameTime);
+                    break;
+
+                case Play:
+                    Play_UpdateGE(gameTime);
+                    break;
+
+                case Instructions:
+                    Intstructions_Update(gameTime);
+                    break;
+
+                case HighScore:
+                    HighScore_UpdateGE(gameTime);
+                    break;
+
+                case Quit:
+                    this.Exit();
+                    break;
+            }
+        }
+
+
+And make a single Main_Update method in GameElements that would only update the active gamestate and place that into GameElements like this.
+
+        protected override void Update(GameTime gameTime)
+        {
+            // Escape key exits the game
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            GameElements.Main_Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
+Then it would only update the active gamestate. So im not sure why its done the way it is in Spaceshooter. But ill go research it and try and find an aswer.
+
+=============================================================================================================================================
+REASERCH AT 17:16 || BACK AT 17:28
+=============================================================================================================================================
+
+I looked into it and found no real reason why its done that way in Spaceshooter. So im going to go ahead and implement the gamestates update and draw methods into GameElements instead of Game1.
+
+The main reason against it is that i lose controll over "handling framework-specific operations like Exit()"
+But i have already stumbled onto a solution for that by just calling Environment.Exit(0) via my Button class in a previous version of this project.
+
+So im going to go ahead and implement it that way.
+
+
+-------------17:36----------------
+
+Ive found another ting that id dont fully understand yet. Its about how the GameStates are defined. On a previous project i made i defined the gamestates as const ints like this:
+
+        public const int MENU = 0, LvlSelect = 1, BtlGround1 = 2, BtlGround2 = 3, BtlGround3 = 4, BtlGround4 = 5, HIGHSCORE = 6;
+        private int gameState = MENU; // Current game state
+
+
+While in Spaceshooter they are defined as an enum like this:
+
+        public enum State { Menu, Run, HighScore, Quit };
+        public static State currentState;
+
+=============================================================================================================================================
+REASERCH AT 17:44 || BACK AT 17:51
+=============================================================================================================================================
+
+After looking into it i found that using an enum is the better way to go about it. 
+Primarily because of:
+
+"Type Safety" meaning that you cant assign any random int value 
+to the gameState variable. You can only assign the values defined in the enum.
+
+"Better tooling support" mainly mentioning (IntelliSense, refactoring) meaning that when you type gameState. the IDE will show you the possible values from the enum.
+
+"Standard practice in professional C# game development" Meaning that its the more commonly used method in the industry. Making me look more professional.
+
+So im going to go ahead and implement the gamestates as an enum instead of const ints.
+
+
+-------------18:11----------------
+
+Ive implemented the gamestates as an enum and moved the update and draw methods to GameElements.
+
+-------------19:31----------------
+
+Ive come to a crossroad. I have two choices on how i want to load my button textures. this is the main one that im thinking about:
+
+        `[up in the void]`
+        private static Texture2D _menuStartTexture;
+
+
+
+        public static void LoadContentGE(ContentManager contentManager, GameWindow window)
+        {
+            _menuStartTexture = contentManager.Load<Texture2D>("images/Menu/start");
+        }
+
+        public static State Menu_UpdateGE(GameTime gameTime)
+        {
+            Button playButton = new Button(_menuStartTexture, 640 - 100, 100, 200, 50, () => currentState = State.Play, Color.White, Color.Green);
+        }
+
+and then draw it like normal. But this makes it so that ill have to make all my buttons as static variables up in the void. Making things look crouded and messy. And i have anopther
+option that is a little worse but simpler and shorter:
+
+        public static void LoadContentGE(ContentManager contentManager, GameWindow window)
+        {
+            content = contentManager;
+        }
+
+
+but in turn makes it a little worse due to these reasons as noted by AI:
+
+•	Static state: Makes testing harder and can cause issues if you ever need multiple game instances
+•	Tight coupling: GameElements now depends on ContentManager existing globally
+•	Thread safety: Not thread-safe if accessed from multiple threads (unlikely in XNA games, but still worth noting) 
+
+So i think im going to go with the first option even if it makes things a little messier.
+
+
+-------------19:44----------------
+
+Ok im a little annoyed because i cant draw it now and i think i have to move everything back up to loadcontent in GameElemnts because i cant access the button. I wanted to have everything well spread out
+but i guess ill have to put all the button definitions up in the void. and also make the LoadContentGE method a little bigger. But oh well.
+
+-------------20:20----------------
+
+w wrote this code:
+        public static Button buttons;
+        public static Button playButton;
+
+
+        public static void LoadContentGE(ContentManager contentManager, GameWindow window)
+        {
+            playButton = new Button(contentManager.Load<Texture2D>("images/menu/start"), 640 - 200 / 2, 100, 200, 50, () => currentState = State.Play, Color.White, Color.Green);
+        }
+
+
+        public static State Menu_UpdateGE(GameTime gameTime)
+        {
+            MouseState mouse = Mouse.GetState();
+            playButton.Update(mouse);
+
+            // Menu update logic for game elements can be added here
+            Debug.WriteLine("In Menu Update GE");
+            return State.Menu;
+        }
+
+
+
+        public static void Menu_DrawGE(SpriteBatch spriteBatch)
+        {
+            playButton.Draw(spriteBatch);
+            // Drawing logic for game elements can be added here
+        }
+
+
+Then i asked AI if there was any issues with the code and it said:
+
+Summary of Issues
+1.	❌ Unused variables (menuButtons list, buttons field)  -- Ignore this/I was half way through implementing a button list
+2.	❌ Not scalable (individual button fields instead of collections) 
+
+3.	❌ Inconsistent return types (State vs void) -- I tride to make it resemble the one that we had in Spaceshooter but i guess im not supposed to anymore.
+I just tested removeing all the "public static State" and made it "public static void" and it didnt seem to effect anything:
+
+4.	⚠️ Magic numbers (hardcoded coordinates) -- 640 - 200 / 2, 100, 200, 50 i sued these to position my buttons but i could use variables instead to make it cleaner.
+
+5.	⚠️ No centralized button management per state -- As i mentiond i was half way through implementing a button list to manage all buttons in a single collection.
+So as for now everything looks like it can easily be perfectly optimized.
+
+-------------20:45----------------
+
+Actually ive decided to keep the magic numvbers for now because its easier to visualize where the buttons will be placed on the screen. and also i 
+have no clue how to do it without clogging up the code and making it messy. So ill keep it like this for now.
+
+-------------21:21----------------
+
+Im ending it here for today. Ive implemented the MenuState with all working buttons that take you to the seperate gamestates. Im a little nervouse about
+the lack of classes, inheritence and polymorphism but i think ill be able to fix that when i start implementing the BattleState.
+Because thats where most of the game logic will be. alongside the card system that ill have to implement. 
+
+Im honsetly really scared about the fact that grade wise this is not going to be the most impressive project. 
+But im going to try my best to make it as good as possible ot add classes and stuff where i can. Without making things stupid.
+
+___TOMORROW___
+Ill have to implement the background for all the GameStates and if i have time i migth throw in and fix Highscore since its already premade for us.
+

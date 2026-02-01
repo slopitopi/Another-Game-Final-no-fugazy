@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Another_Game_Final_no_fugazy.Game1">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAwAAAAAAAAAAAAAAAAACAIAAAAAAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.GameElements">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Another_Game_Final_no_fugazy.GameElements.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABgBgAAAQJEAAJwACgAAAAAAACAIAAAAAAAAAAAA=</HashCode>
+      <FileName>GameElements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.Button">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAgAAAAAAAgAAAAAAIQAAgAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
