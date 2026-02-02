@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json;
 
 namespace Another_Game_Final_no_fugazy
 {
@@ -19,6 +22,12 @@ namespace Another_Game_Final_no_fugazy
         //--------------------------------Game State Management END--------------------------------//
 
 
+        //--------------------------------TEST PLANE--------------------------------//
+        private static Background background;
+        //--------------------------------TEST PLANE END--------------------------------//
+
+
+
         //--------------------------------Button Lists For GameStates--------------------------------//
         private static List<Button> menuButtons;
         //-------------------------------- Button Lists For GameStates END--------------------------------//
@@ -26,10 +35,20 @@ namespace Another_Game_Final_no_fugazy
         public static void InitializeGE()
         {
             currentState = State.Menu; // Set initial state to Menu
+            background = new Background();
         }
 
         public static void LoadContentGE(ContentManager content, GameWindow window)
         {
+
+
+            //--------------------------------TEST PLANE--------------------------------//
+
+            //--------------------------------TEST PLANE END--------------------------------//
+
+            background.LoadAllBackgrounds(content);
+            background.SetState(currentState);
+
             // The lists for buttons in each state are initialized here and also the buttons are created and added to the lists.
             menuButtons = new List<Button>()
             {
@@ -38,7 +57,9 @@ namespace Another_Game_Final_no_fugazy
                 new Button(content.Load<Texture2D>("images/menu/instructions_"), 640 - 200 / 2, 200 + 40, 200, 50, () => currentState = State.Instructions, Color.White, Color.Red),
                 new Button(content.Load<Texture2D>("images/menu/quit_"), 640 - 200 / 2, 250+ 60, 200, 50, () => Environment.Exit(0), Color.White, Color.Red),
             };
-            
+
+
+
         }
 
 
@@ -112,12 +133,17 @@ namespace Another_Game_Final_no_fugazy
         public static void Menu_UpdateGE(GameTime gameTime)
         {
             // Menu update logic for game elements can be added here
+            background.Update(gameTime);
+
+
+
+
             MouseState mouse = Mouse.GetState();
 
 
             foreach (Button button in menuButtons)
             {
-                button.Update(mouse);
+                button.BtnCheck(mouse);
             }
 
 
@@ -130,12 +156,13 @@ namespace Another_Game_Final_no_fugazy
         public static void Menu_DrawGE(SpriteBatch spriteBatch)
         {
             // Drawing logic for game elements can be added here
+            background.Draw(spriteBatch);
+
 
             foreach (Button button in menuButtons)
             {
-                button.Draw(spriteBatch);
+                button.BtnMake(spriteBatch);
             }
-
         }
 
 

@@ -217,6 +217,18 @@
 /processorParam:TextureFormat=Color
 /build:images/menu/instructions_.png;images/menu/instructions_
 
+#begin images/menu/MenBackground.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/menu/MenBackground.jpg;images/menu/MenBackground
+
 #begin images/menu/playButton_.png
 /importer:TextureImporter
 /processor:TextureProcessor

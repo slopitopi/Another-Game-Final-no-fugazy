@@ -17,15 +17,36 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAABgBgAAAQJEAAJwACgAAAAAAACAIAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABgFgAAAQJEAAIwACgAAAAAAACAAAAAAAAAAAIAA=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Button">
-    <Position X="10.5" Y="5" Width="1.5" />
+    <Position X="2.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQEAgAAAAAAAgAAAAAAIQAAgAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAgAAAAACAAAAAAAAoQAAgAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.Background">
+    <Position X="12.75" Y="7.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Another_Game_Final_no_fugazy.Background.BackgroundAssets" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Background.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQABAAAAAAAAgAAAgAQAAAAAAAAAEAAAAgAAAIAAAA=</HashCode>
+      <FileName>Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.BackgroundAsset">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BackgroundAsset.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

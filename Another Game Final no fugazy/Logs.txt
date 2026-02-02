@@ -259,3 +259,285 @@ But im going to try my best to make it as good as possible ot add classes and st
 ___TOMORROW___
 Ill have to implement the background for all the GameStates and if i have time i migth throw in and fix Highscore since its already premade for us.
 
+
+
+
+
+
+02/02/26  -  17:39
+
+Im gonna impliment the background for all the gamestates today and if i have time ill fix highscore. 
+
+Im going to start by taking in all the stuff from my other project GameGameGame that i understand and try and implimenty it here but have only the logic in background
+and loading, drawing and updating in GameElements since thats what we did in SpaceShooter.
+
+
+-------------18:04----------------
+
+Ive asked AI why its better to have the loading, updating and drawing in GameElements instead of in each gamestate class and then got the asnwer i was expecting but also
+i asked it about the code that i used prevoiusly:
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+
+namespace GameGameGame
+{
+    /// <summary>
+    /// Loads and displays backgrounds for different game states
+    /// 
+    /// Supports both animated and static backgrounds - automatically loads the right textures when the game state changes
+    /// </summary>
+    internal class Backgrounds : Objects
+    {
+        //initializes what its gonna use
+        private ContentManager content;
+        private GameWindow window;
+
+
+        // Used to detect when game state changes so we can reload textures
+        private int currentGameState = -1; // Start with an invalid value
+
+
+
+
+        public Backgrounds(ContentManager content, GameWindow window) : base()
+        {
+            this.content = content;
+            this.window = window;
+            this.destinationRectangle = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
+        }
+
+
+
+
+
+        public void UpdateWithState(GameTime gameTime, int gameState)
+        {
+            // If we switched to a different game state, load new textures
+            if (gameState != currentGameState)
+            {
+                LoadTexturesForState(gameState);
+                currentGameState = gameState;
+                ResetAnimation();
+            }
+
+            // Update size in case window was resized
+            destinationRectangle = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
+
+            base.Update(gameTime);
+        }
+
+
+
+
+
+        // Load the right background textures for each game state
+        private void LoadTexturesForState(int state)
+        {
+            if (state == GameStateManager.MENU)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/Menu/bg1"),
+                    content.Load<Texture2D>("images/Menu/bg2"),
+                    content.Load<Texture2D>("images/Menu/bg3")
+                };
+            }
+
+
+            else if (state == GameStateManager.LvlSelect)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/LvlSelect/Map")
+                };
+            }
+
+
+            else if (state == GameStateManager.BtlGround1)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/BattleGroundSprites/BattleGround1/Battleground_BG1")
+                };
+            }
+
+
+            else if (state == GameStateManager.BtlGround2)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/BattleGroundSprites/BattleGround2/Reze")
+                };
+            }
+
+
+            else if (state == GameStateManager.BtlGround3)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/BattleGrounds/BattleGround3/bg1")
+                };
+            }
+
+
+            else if (state == GameStateManager.BtlGround4)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/BattleGrounds/BattleGround4/bg1")
+                };
+            }
+
+
+            else if (state == GameStateManager.HIGHSCORE)
+            {
+                textures = new Texture2D[]
+                {
+                    content.Load<Texture2D>("images/HighScore/bg1")
+                };
+            }
+        }
+    }
+}
+
+
+It said that it was basically doing too much as a class and braking the single responsibility principle by:
+
+Managing texture loading/unloading (content management)
+Handling game state changes
+Animation logic (implied by ResetAnimation())
+Window resizing
+It's essentially a mini-game-manager for backgrounds
+
+
+It also has memory leaks because everytime i swich gamestates i create a new array of textures 
+without disposing the old ones even though its cached even though the same asset won't be reloaded from disk.
+So im keeping old useless textures in memory that i dont need anymore.
+
+
+Its also tightly coupled to the GameStateManager because it directly references game state constants, making it inflexible and it suggseted 
+that what if i want to:
+
+Use the same background for multiple states?
+Randomly select from multiple backgrounds for a state?
+Dynamically load backgrounds based on player progression?
+
+Which i do want to do a little bit of, mainly that i want to randomly select from multiple backgrounds for a state.
+
+
+And it also gave me a few suggestions on how to do it better, and the one that caugth my eye was this one with JSON-Based:
+
+        // backgrounds.json
+        [
+          {
+            "id": "main_menu",
+            "textures": ["images/Menu/bg1", "images/Menu/bg2", "images/Menu/bg3"],
+            "animationSpeed": 0.5,
+            "states": [0]  // GameStateManager.MENU
+          },
+          {
+            "id": "battle_ground_1", 
+            "textures": ["images/BattleGroundSprites/BattleGround1/Battleground_BG1"],
+            "states": [2]  // GameStateManager.BtlGround1
+          }
+        ]
+
+It looks interesting since ive never used it before and its also said to be the most professional way to do it. So im going to try and implement it that way.
+
+AI says its basically better in every way other than it adds some complexity by requiring JSON parsing and data management and also is sligthly slower. 
+But i think its worth it.
+
+I stumbled across this video that shows how to implement JSON to save and load stats and stuff which i migth use:
+https://www.youtube.com/watch?v=gYksT0d_xLM 
+
+
+This video is what shows me how to use JSON:
+https://www.youtube.com/watch?v=iiADhChRriM&t=170s
+Its in java script but it still helped me understand what JSON is and how to build it.
+
+This video shows how to practuiacally use it in monogame C# at about 1 hour and 10 muinets in the video:
+https://www.youtube.com/watch?v=fdbGz20q8yk  (Timestamp: 1:10:18) 
+
+
+=============================================================================================================================================
+BRAKE AT 19:55 || BACK AT 21:10
+=============================================================================================================================================
+
+Ok before i took the brake i looked into JSON and found out that using record is just better apperantly
+but again i have almost no clue how to use it. and when i asked AI to clerify it i didnt understand it any better.
+
+But what im worried about is the upgrade menu or the chaning of anything in the middle of the battle.
+Like a new background for a new wave or something. But its so private almost annoyinly so that i cant 
+figure out how to do it.
+
+https://www.youtube.com/watch?v=NsLXQQAsYSk
+
+This video dose a grate job on explaining records and how to use it. It also somewhat putts my mind at ease 
+about using it for my backgrounds. because my backgound images are in an array and from what i understand 
+by using the "with" keyword i can just change the array to a new one with new images whenever i want.
+And i think ill also be able to replace it with any random background if i set it up right. with a randomizer.
+
+
+-------------23:01----------------
+
+Im tired and realized that im not going to be able to implement JSON at all since its so stupidly complex
+for me to understand right now. So ill just go and do it the normal boring blocky way that i understand.
+
+and its made for long term projects so its not really suited for a small project like this anyway.
+
+-------------23:13----------------
+I was looking at ways to make the code that i showed on line 285-404 more efficeint and just better in general
+and came across Dictionary. The AI suggested this as an example
+
+public class BackgroundDefinition
+{
+    public string[] TexturePaths { get; set; }
+    public bool IsAnimated { get; set; }
+    public float FrameDuration { get; set; } = 0.1f;
+}
+
+// In your main game class or a config loader:
+private Dictionary<int, BackgroundDefinition> _backgroundDefinitions;
+
+private void LoadBackgroundDefinitions()
+{
+    _backgroundDefinitions = new Dictionary<int, BackgroundDefinition>
+    {
+        { 
+            GameStateManager.MENU, 
+            new BackgroundDefinition 
+            { 
+                TexturePaths = new[] { "images/Menu/bg1", "images/Menu/bg2", "images/Menu/bg3" },
+                IsAnimated = true,
+                FrameDuration = 0.15f
+            }
+        },
+        {
+            GameStateManager.LvlSelect,
+            new BackgroundDefinition
+            {
+                TexturePaths = new[] { "images/LvlSelect/Map" },
+                IsAnimated = false
+            }
+        }
+        // ... etc
+    };
+}
+
+
+And as understand it, its just an inventory you can go in and out of whenever ou want
+
+-------------00:47----------------
+
+Done with the backgrounds im a bit pissed off about how long it took me to implement them in an effective manner as well as 
+the amount of research i wasted reading about JSON and records.
+
+My main goal was acheeved tho so im happy about that.
+
+___TOMORROW___
+Ill begin on the instructions state and highscore state, and set the ground for possibele currency and upgrade systems in the battlestate. If  i
+end up on the optimistic side tomorrow.
+

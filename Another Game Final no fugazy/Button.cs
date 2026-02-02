@@ -11,6 +11,8 @@ namespace Another_Game_Final_no_fugazy
 {
     internal class Button
     {
+
+        //--------------------------------Game State Management--------------------------------//
         private Texture2D texture;
         private Rectangle rect;
         private Color normalColor;
@@ -18,6 +20,7 @@ namespace Another_Game_Final_no_fugazy
         private Color currentColor;
         private Action onClick;
         private bool wasPressed;
+        //--------------------------------Game State Management--------------------------------//
 
         public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color? normalColor = null, Color? hoverColor = null)
         {
@@ -39,7 +42,7 @@ namespace Another_Game_Final_no_fugazy
         /// It changes button color and makes sure it registers the click and exicutes the action.
         /// </summary>
         /// <param name="mouseState"></param>
-        public void Update(MouseState mouseState)
+        public void BtnCheck(MouseState mouseState)
         {
             bool isHovering = rect.Contains(mouseState.X, mouseState.Y);
 
@@ -64,7 +67,7 @@ namespace Another_Game_Final_no_fugazy
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void BtnMake(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, currentColor);
         }
