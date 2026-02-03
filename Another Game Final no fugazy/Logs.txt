@@ -541,3 +541,73 @@ ___TOMORROW___
 Ill begin on the instructions state and highscore state, and set the ground for possibele currency and upgrade systems in the battlestate. If  i
 end up on the optimistic side tomorrow.
 
+
+
+
+
+03/02/26  -  20:19
+
+So the moment i went back to double chak what i did recently with the backgrounds i realized that i made a mistake.
+But i managed to fix it quickly enough.
+
+Also realised that i made another mistake i think. regardless of what is going on the classes are never supposed to holds the logic for it
+like:
+
+background = new Background(content.Load<Texture2D>("images/Menu/background"), window);
+or loading assests wisch is a mistake so even if it will look ugly i think ill have to put it into GameElements
+
+
+New problem. i just checked stackoverflow and found out that havin a "God Class" That dose everything is a bad idea. And what
+we did in Spaceshooter is exactly that. When i asked AI about it it said that its basically and organised mess and teaches you to be a bad
+programmer.
+
+Now im realliy stessing because i wnat ot do it well instead of just rushing through it and making a mess. But im very time limited Right now.
+
+
+Im way too deep into this project to start over so now im low key pissed because why teach us this if its bad practice.
+very very bad practice.
+
+But im way too deep into this project to start over so now which makes me even angryer.
+
+So now ill just have to keep going and try and make it as good as possible.
+
+
+-------------21:24----------------
+So now ill just follow the example left by spaceshooter and try and make it as good as possible. by continuing to move all the information 
+about positions into GameElements and just have the classes hold the logic for now.
+
+
+I realized that i need to plan out my ClassStructure before i start implimenting anything else. Because i have no clue how im going to 
+impliment them properly without making things difficult later on
+
+
+
+
+
+Ive made GameObjects and it will have the absolute most base things that every class that comes after will have:
+
+- Texture
+- Position
+
+
+-------------21:50----------------
+Actually ill come back to this later. Its late and im tired. So ill just do the simpler Instructions and Highscore states now.
+
+
+
+-------------00:02----------------
+Ive implemented the InstructionsState and HighScoreState with working backgrounds and buttons to go back to the menu. And its all fuunctioning correctly.
+
+Though i cant say im verry happy with the God Class still. Among the other things like the lack of inheritence and polymorphism. 
+But ill try and fix that when i start implementing the BattleState becasuse there is not yet much to inherit from or polymorph.
+
+And i still dont understand why you have to start a compleatly new state to do the writing and stuff for highscore. 
+And im also aware that this code is probably horribley oprimized but i genuinely have no time to fix it now. I know im starting 
+instences of stuff that i never use again and stuff like that. And i think the backgrounds are probaly loaded multiple times even if they are the same.
+
+but i have no time to fix it and no clue where to start. So ill just leave it as is. 
+
+___TOMORROW___
+Ill start with designing the class and inheritence structure for the Play and the card system. If i have time ill start implementing it as well.
+But i have to remember 
+good programming is 90% planning and 10% actual coding. So ill take my time to plan it out properly.

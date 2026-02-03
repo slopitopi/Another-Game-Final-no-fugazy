@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Another_Game_Final_no_fugazy
+{
+    // =======================================================================
+    // HsItem, en behållare-klass som innehåller info om en person i
+    // highscorelistan.
+    // =======================================================================
+    class HSItem
+    {
+        // Variabler och egenskaper för dem:
+        string name;
+        int points;
+
+        public string Name { get { return name; } set { name = value; } }
+
+        public int Points { get { return points; } set { points = value; } }
+
+        // =======================================================================
+        // HSItem(), klassens konstruktor
+        // =======================================================================
+        public HSItem(string name, int points)
+        {
+            this.name = name;
+            this.points = points;
+        }
+    }
+}

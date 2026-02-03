@@ -16,15 +16,52 @@ namespace Another_Game_Final_no_fugazy
 {
     internal static class GameElements
     {
-        //--------------------------------Game State Management--------------------------------//
-        public enum State { Menu, Play, Instructions, HighScore };
-        public static State currentState;
-        //--------------------------------Game State Management END--------------------------------//
+
 
 
         //--------------------------------TEST PLANE--------------------------------//
-        private static Background background;
+
         //--------------------------------TEST PLANE END--------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+        //--------------------------------HighScore--------------------------------//
+        public enum StateHighS { PrintHighScore, EnterHighScore };
+        private static StateHighS HighState;
+        private static HighScore highscore;
+        private static SpriteFont myFont;
+        //--------------------------------HighScore--------------------------------//
+
+
+
+
+        //-------------------------------Instructions Text--------------------------------//
+        private static Instructions instructions;
+        private static Button backButton;
+        private static SpriteFont insttructionFont;
+        //-------------------------------Instructions Text END--------------------------------//
+
+
+
+        //--------------------------------Game State Management--------------------------------//
+        public enum State { Menu, Play, Instructions, HighScore };
+        public static State currentState;
+        private static State _previousState;
+        //--------------------------------Game State Management END--------------------------------//
+
+
+        //--------------------------------Background--------------------------------//
+        private static Background background;
+        //--------------------------------Background END--------------------------------//
+
 
 
 
@@ -32,23 +69,141 @@ namespace Another_Game_Final_no_fugazy
         private static List<Button> menuButtons;
         //-------------------------------- Button Lists For GameStates END--------------------------------//
 
+
+
+
+
+
+
+
+
+
         public static void InitializeGE()
         {
             currentState = State.Menu; // Set initial state to Menu
             background = new Background();
         }
 
-        public static void LoadContentGE(ContentManager content, GameWindow window)
+
+
+
+
+
+
+
+
+
+
+
+        public static void LoadContentGE(ContentManager content, GameWindow window, GraphicsDevice graphicsDevice)
         {
-
-
             //--------------------------------TEST PLANE--------------------------------//
 
             //--------------------------------TEST PLANE END--------------------------------//
 
-            background.LoadAllBackgrounds(content);
-            background.SetState(currentState);
 
+
+            //--------------------------------Universal Stuff--------------------------------//
+            backButton = new Button(
+                content.Load<Texture2D>("images/Instructions/BackButton"),
+                window.ClientBounds.Width - 110,
+                window.ClientBounds.Height - 60,
+                100,
+                50,
+                () => currentState = State.Menu,
+                Color.White,
+                Color.Red
+            );
+            //--------------------------------Universal Stuff END--------------------------------//
+
+
+
+
+
+
+
+
+
+
+            //--------------------------------HighScore--------------------------------//
+            highscore = new HighScore(10); // List holds a maximum of 10 entries
+            myFont = content.Load<SpriteFont>("File");
+
+            highscore.LoadFromFile("highscore.txt");
+            //--------------------------------HighScore END--------------------------------//
+
+
+            //-------------------------------Instructions Text--------------------------------//
+            insttructionFont = content.Load<SpriteFont>("File");
+
+            string instructionsText =
+
+                "Instructions:\n\n" +
+
+                "1. Use the mouse to interact with everything.\n" +
+                "2. Press the spacebar to jump.\n" +
+                "3. Collect coins to increase your score.\n" +
+                "4. Avoid enemies to stay alive.\n" +
+                "5. Reach the end of the level to win!\n\n" +
+                "Good luck and have fun!";
+
+
+
+            instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice);
+            //-------------------------------Instructions Text END--------------------------------//
+
+
+
+            //--------------------------------Background--------------------------------//
+            // Menu background (animated example with multiple frames)
+            background.AddBackground(State.Menu, new BackgroundAsset(
+                new[] { 
+                    content.Load<Texture2D>("images/menu/frame_00"),
+                    content.Load<Texture2D>("images/menu/frame_01"),
+                    content.Load<Texture2D>("images/menu/frame_02"),
+                    content.Load<Texture2D>("images/menu/frame_03"),
+                    content.Load<Texture2D>("images/menu/frame_04"),
+                    content.Load<Texture2D>("images/menu/frame_05"),
+                    content.Load<Texture2D>("images/menu/frame_06"),
+                    content.Load<Texture2D>("images/menu/frame_07"),
+                    content.Load<Texture2D>("images/menu/frame_08"),
+                    content.Load<Texture2D>("images/menu/frame_09"),
+                    content.Load<Texture2D>("images/menu/frame_10"),
+                    content.Load<Texture2D>("images/menu/frame_11"),
+                    content.Load<Texture2D>("images/menu/frame_12"),
+                    content.Load<Texture2D>("images/menu/frame_13"),
+                    content.Load<Texture2D>("images/menu/frame_14"),
+
+
+                },
+                isAnimated: true,
+                frameDuration: 0.09f
+            ));
+
+            //// Play background
+            //background.AddBackground(State.Play, new BackgroundAsset(
+            //    new[] { content.Load<Texture2D>("images/play/PlayBackground") },
+            //    isAnimated: false
+            //));
+
+            // Instructions background
+            background.AddBackground(State.Instructions, new BackgroundAsset(
+                new[] { content.Load<Texture2D>("images/Instructions/Background") },
+                isAnimated: false
+            ));
+
+            //// HighScore background
+            //background.AddBackground(State.HighScore, new BackgroundAsset(
+            //    new[] { content.Load<Texture2D>("images/highscore/HighScoreBackground") },
+            //    isAnimated: false
+            //));
+
+            background.SetState(currentState);
+            //--------------------------------Background--------------------------------//
+
+
+
+            //-------------------------------MenuButtons--------------------------------//
             // The lists for buttons in each state are initialized here and also the buttons are created and added to the lists.
             menuButtons = new List<Button>()
             {
@@ -57,7 +212,7 @@ namespace Another_Game_Final_no_fugazy
                 new Button(content.Load<Texture2D>("images/menu/instructions_"), 640 - 200 / 2, 200 + 40, 200, 50, () => currentState = State.Instructions, Color.White, Color.Red),
                 new Button(content.Load<Texture2D>("images/menu/quit_"), 640 - 200 / 2, 250+ 60, 200, 50, () => Environment.Exit(0), Color.White, Color.Red),
             };
-
+            //-------------------------------MenuButtons END--------------------------------//
 
 
         }
@@ -71,6 +226,11 @@ namespace Another_Game_Final_no_fugazy
         /// <param name="gameTime"></param>
         public static void MASTER_UpdateGE(GameTime gameTime)
         {
+            if (currentState != _previousState)
+            {
+                background.SetState(currentState);
+                _previousState = currentState;
+            }
 
             switch (currentState)
             {
@@ -133,19 +293,21 @@ namespace Another_Game_Final_no_fugazy
         public static void Menu_UpdateGE(GameTime gameTime)
         {
             // Menu update logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
             background.Update(gameTime);
+            //--------------------------------Background END--------------------------------//
 
 
 
 
+            //-------------------------------MenuButtons--------------------------------//
             MouseState mouse = Mouse.GetState();
-
 
             foreach (Button button in menuButtons)
             {
                 button.BtnCheck(mouse);
             }
-
+            //-------------------------------MenuButtons--------------------------------//
 
 
             Debug.WriteLine("In Menu Update GE");
@@ -156,14 +318,28 @@ namespace Another_Game_Final_no_fugazy
         public static void Menu_DrawGE(SpriteBatch spriteBatch)
         {
             // Drawing logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
             background.Draw(spriteBatch);
+            //--------------------------------Background--------------------------------//
 
 
+            //-------------------------------MenuButtons--------------------------------//
             foreach (Button button in menuButtons)
             {
                 button.BtnMake(spriteBatch);
             }
+            //-------------------------------MenuButtons END--------------------------------//
+
         }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,6 +349,9 @@ namespace Another_Game_Final_no_fugazy
 
         public static void Play_UpdateGE(GameTime gameTime)
         {
+            //--------------------------------Background--------------------------------//
+            background.Update(gameTime);
+            //--------------------------------Background END--------------------------------//
             // Play update logic for game elements can be added here
             Debug.WriteLine("In Play Update GE");
 
@@ -183,7 +362,20 @@ namespace Another_Game_Final_no_fugazy
         public static void Play_DrawGE(SpriteBatch spriteBatch)
         {
             // Drawing logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
+            background.Draw(spriteBatch);
+            //--------------------------------Background--------------------------------//
         }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -193,12 +385,50 @@ namespace Another_Game_Final_no_fugazy
         public static void Instructions_UpdateGE(GameTime gameTime)
         {
             // Instructions update logic for game elements can be added here
+
+            //--------------------------------Background--------------------------------//
+            background.Update(gameTime);
+            //--------------------------------Background END--------------------------------//
+
+
+            //-------------------------------Back Button--------------------------------//
+            MouseState mouse = Mouse.GetState();
+            backButton.BtnCheck(mouse);
+            //-------------------------------Back Button END--------------------------------//
+
+
             Debug.WriteLine("In Instructions Update GE");
         }
+
         public static void Instructions_DrawGE(SpriteBatch spriteBatch)
         {
             // Instructions drawing logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
+            background.Draw(spriteBatch);
+            //--------------------------------Background--------------------------------//
+
+            //-------------------------------Instructions Text--------------------------------//
+            instructions.Draw(spriteBatch);
+            //-------------------------------Instructions Text END--------------------------------//
+
+
+            //-------------------------------Back Button--------------------------------//
+            backButton.BtnMake(spriteBatch);
+            //-------------------------------Back Button--------------------------------//
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -209,6 +439,47 @@ namespace Another_Game_Final_no_fugazy
         public static void HighScore_UpdateGE(GameTime gameTime)
         {
             // HighScore update logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
+            background.Update(gameTime);
+            //--------------------------------Background END--------------------------------//
+
+            //-------------------------------Back Button--------------------------------//
+            MouseState mouse = Mouse.GetState();
+            backButton.BtnCheck(mouse);
+            //-------------------------------Back Button END--------------------------------//
+
+            //--------------------------------HighScore--------------------------------//
+            switch (HighState)
+            {
+                case StateHighS.EnterHighScore:
+                    // Continue while EnterUpdate returns false. Pass in GameTime and a score (e.g., 10).
+                    if (highscore.EnterUpdate(gameTime, 10))
+                    {
+                        highscore.SaveToFile("highscore.txt");
+                        HighState = StateHighS.PrintHighScore; // Switch state when entry is complete
+                    }
+                    break;
+
+
+                default: // State.PrintHighScore
+                    KeyboardState keyboardState = Keyboard.GetState();
+                    if (keyboardState.IsKeyDown(Keys.E)) // Press 'E' to enter a new score
+                    {
+                        HighState = StateHighS.EnterHighScore;
+                    }
+
+                    if (keyboardState.IsKeyDown(Keys.Back) || keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        currentState = State.Menu;
+                    }
+                    break;
+            }
+            //--------------------------------HighScore END--------------------------------//
+
+
+
+
+
             Debug.WriteLine("In HighScore Update GE");
         }
 
@@ -216,6 +487,28 @@ namespace Another_Game_Final_no_fugazy
         public static void HighScore_DrawGE(SpriteBatch spriteBatch)
         {
             // HighScore drawing logic for game elements can be added here
+            //--------------------------------Background--------------------------------//
+            background.Draw(spriteBatch);
+            //--------------------------------Background--------------------------------//
+
+
+            //-------------------------------Back Button--------------------------------//
+            backButton.BtnMake(spriteBatch);
+            //-------------------------------Back Button--------------------------------//
+
+            //--------------------------------HighScore--------------------------------//
+            switch (HighState)
+            {
+                case StateHighS.EnterHighScore:
+                    highscore.EnterDraw(spriteBatch, myFont);
+                    break;
+                default: // PrintHighScore
+                    highscore.PrintDraw(spriteBatch, myFont);
+                    break;
+            }
+            //--------------------------------HighScore END--------------------------------//
+
+
         }
 
 

@@ -36,7 +36,7 @@ namespace Another_Game_Final_no_fugazy
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameElements.LoadContentGE(Content, Window);
+            GameElements.LoadContentGE(Content, Window, GraphicsDevice);
         }
 
         protected override void UnloadContent()

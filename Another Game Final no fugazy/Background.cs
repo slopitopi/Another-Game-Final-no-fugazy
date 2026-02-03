@@ -11,91 +11,70 @@ using System.Threading.Tasks;
 
 namespace Another_Game_Final_no_fugazy
 {
-    internal class Background: BackgroundAsset
+    internal class Background : BackgroundAsset
     {
-        private readonly Dictionary<GameElements.State, BackgroundAssets> _assets;
-        private BackgroundAssets _currentAssets;
+        private readonly Dictionary<GameElements.State, BackgroundAsset> _assets;
+        private BackgroundAsset _currentAsset;
         private float _elapsedTime;
         private int _currentFrame;
 
         public Background() : base(null)
         {
-            _assets = new Dictionary<GameElements.State, BackgroundAssets>();
+            _assets = new Dictionary<GameElements.State, BackgroundAsset>();
         }
 
-        public void LoadAllBackgrounds(ContentManager content)
+        /// <summary>
+        /// Adds a background asset for a specific game state.
+        /// Called from GameElements during LoadContent.
+        /// </summary>
+        public void AddBackground(GameElements.State state, BackgroundAsset asset)
         {
-            // Pre-load all backgrounds for all states
-            _assets[GameElements.State.Menu] = new BackgroundAssets(
-                textures: new[] { content.Load<Texture2D>("images/menu/MenBackground") },
-                isAnimated: true
-            );
-            //_assets[GameElements.State.Play] = new BackgroundAssets(
-            //    textures: new[] { content.Load<Texture2D>("images/Play/bg1") },
-            //    isAnimated: false
-            //);
-            //_assets[GameElements.State.Instructions] = new BackgroundAssets(
-            //    textures: new[] { content.Load<Texture2D>("images/Instructions/bg1") },
-            //    isAnimated: false
-            //);
-            //_assets[GameElements.State.HighScore] = new BackgroundAssets(
-            //    textures: new[] { content.Load<Texture2D>("images/HighScore/bg1") },
-            //    isAnimated: false
-            //);
+            _assets[state] = asset;
         }
 
-
-
+        /// <summary>
+        /// Sets the current background based on game state.
+        /// </summary>
         public void SetState(GameElements.State state)
         {
-            if (_assets.TryGetValue(state, out var assets))
+            if (_assets.TryGetValue(state, out var asset))
             {
-                _currentAssets = assets;
+                _currentAsset = asset;
                 _currentFrame = 0;
                 _elapsedTime = 0f;
             }
         }
 
-
-
+        /// <summary>
+        /// Updates animation frame if the background is animated.
+        /// </summary>
         public void Update(GameTime gameTime)
         {
-            if (_currentAssets == null || !_currentAssets.IsAnimated)
+            if (_currentAsset == null || !_currentAsset.IsAnimated)
                 return;
 
             _elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_elapsedTime < _currentAssets.FrameDuration)
+            if (_elapsedTime < _currentAsset.FrameDuration)
                 return;
 
-            _currentFrame = (_currentFrame + 1) % _currentAssets.Textures.Length;
+            _currentFrame = (_currentFrame + 1) % _currentAsset.Textures.Length;
             _elapsedTime = 0f;
         }
 
+        /// <summary>
+        /// Draws the current background frame.
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_currentAssets?.Textures == null || _currentAssets.Textures.Length == 0)
+            if (_currentAsset?.Textures == null || _currentAsset.Textures.Length == 0)
                 return;
 
-            var texture = _currentAssets.IsAnimated
-                ? _currentAssets.Textures[_currentFrame]
-                : _currentAssets.Textures[0];
+            var texture = _currentAsset.IsAnimated
+                ? _currentAsset.Textures[_currentFrame]
+                : _currentAsset.Textures[0];
 
             spriteBatch.Draw(texture, new Rectangle(0, 0, 1280, 720), Color.White);
-        }
-
-        private class BackgroundAssets
-        {
-            public Texture2D[] Textures { get; }
-            public bool IsAnimated { get; }
-            public float FrameDuration { get; }
-
-            public BackgroundAssets(Texture2D[] textures, bool isAnimated = false, float frameDuration = 0.1f)
-            {
-                Textures = textures;
-                IsAnimated = isAnimated && textures.Length > 1;
-                FrameDuration = frameDuration;
-            }
         }
     }
 }
