@@ -581,9 +581,6 @@ I realized that i need to plan out my ClassStructure before i start implimenting
 impliment them properly without making things difficult later on
 
 
-
-
-
 Ive made GameObjects and it will have the absolute most base things that every class that comes after will have:
 
 - Texture
@@ -611,3 +608,17 @@ ___TOMORROW___
 Ill start with designing the class and inheritence structure for the Play and the card system. If i have time ill start implementing it as well.
 But i have to remember 
 good programming is 90% planning and 10% actual coding. So ill take my time to plan it out properly.
+
+
+
+06/02/26 -  18:11
+
+Bad news 
+
+ive wasted 3 days doing nothing meaningful but better late than never.
+
+its going to start very generically with:
+
+GameObject --> Has position and texture and basic update and draw methods
+
+Assets --> Inherits from GameObject and has methods for loading and unloading assets

@@ -5,23 +5,24 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Another_Game_Final_no_fugazy
 {
-    internal class Background : BackgroundAsset
+    internal class Background
     {
         private readonly Dictionary<GameElements.State, BackgroundAsset> _assets;
         private BackgroundAsset _currentAsset;
         private float _elapsedTime;
         private int _currentFrame;
 
-        public Background() : base(null)
+        public Background()
         {
             _assets = new Dictionary<GameElements.State, BackgroundAsset>();
         }
+
+
 
         /// <summary>
         /// Adds a background asset for a specific game state.
@@ -31,6 +32,8 @@ namespace Another_Game_Final_no_fugazy
         {
             _assets[state] = asset;
         }
+
+
 
         /// <summary>
         /// Sets the current background based on game state.

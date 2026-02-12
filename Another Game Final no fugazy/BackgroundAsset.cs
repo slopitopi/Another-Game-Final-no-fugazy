@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Another_Game_Final_no_fugazy
 {
-    internal class BackgroundAsset 
+    internal class BackgroundAsset
     {
         public Texture2D[] Textures { get; }
         public bool IsAnimated { get; }
@@ -17,7 +17,7 @@ namespace Another_Game_Final_no_fugazy
         public BackgroundAsset(Texture2D[] textures, bool isAnimated = false, float frameDuration = 0.1f)
         {
             Textures = textures;
-            IsAnimated = isAnimated && textures.Length > 1;
+            IsAnimated = isAnimated && textures != null && textures.Length > 1;
             FrameDuration = frameDuration;
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Another_Game_Final_no_fugazy
 {
-    internal class Button
+    internal class Button : GameObject
     {
 
         //--------------------------------Game State Management--------------------------------//
@@ -20,9 +20,10 @@ namespace Another_Game_Final_no_fugazy
         private Color currentColor;
         private Action onClick;
         private bool wasPressed;
+        private Vector2 vector;
         //--------------------------------Game State Management--------------------------------//
 
-        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color? normalColor = null, Color? hoverColor = null)
+        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color? normalColor = null, Color? hoverColor = null) : base(texture, x, y)
         {
             this.texture = texture;
             this.rect = new Rectangle(x, y, width, height);
