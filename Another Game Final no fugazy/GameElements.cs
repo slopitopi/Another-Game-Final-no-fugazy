@@ -20,7 +20,13 @@ namespace Another_Game_Final_no_fugazy
 
 
         //--------------------------------TEST PLANE--------------------------------//
+        private static Card[] deck, pos1, pos2, pos3;
 
+        private static int EnemyHP = 100;
+        private static int PlayerHP = 10;
+
+        private static Random randomCardGen;
+        private static int pos1Index, pos2Index, pos3Index;
         //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -97,8 +103,31 @@ namespace Another_Game_Final_no_fugazy
 
         public static void LoadContentGE(ContentManager content, GameWindow window, GraphicsDevice graphicsDevice)
         {
-            //--------------------------------TEST PLANE--------------------------------//
 
+            //--------------------------------TEST PLANE--------------------------------//
+            pos1 = new Card[]
+            {
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ EnemyHP -= 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { PlayerHP += 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+            };
+
+            pos2 = new Card[]
+            {
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ EnemyHP -= 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { PlayerHP += 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+            };
+
+            pos3 = new Card[]
+            {
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ EnemyHP -= 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { PlayerHP += 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+            };
+
+
+            randomCardGen = new Random();
+            pos1Index = randomCardGen.Next(2);
+            pos2Index = randomCardGen.Next(2);
+            pos3Index = randomCardGen.Next(2);
             //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -171,11 +200,11 @@ namespace Another_Game_Final_no_fugazy
                 frameDuration: 0.09f
             ));
 
-            //// Play background
-            //background.AddBackground(State.Play, new BackgroundAsset(
-            //    new[] { content.Load<Texture2D>("images/play/PlayBackground") },
-            //    isAnimated: false
-            //));
+            // Play background
+            background.AddBackground(State.Play, new BackgroundAsset(
+                new[] { content.Load<Texture2D>("images/Battleground/Battleground_BG1") },
+                isAnimated: false
+            ));
 
             // Instructions background
             background.AddBackground(State.Instructions, new BackgroundAsset(
@@ -293,7 +322,7 @@ namespace Another_Game_Final_no_fugazy
 
             //-------------------------------MenuButtons--------------------------------//
             MouseState mouse = Mouse.GetState();
-
+            
             foreach (Button button in menuButtons)
             {
                 button.BtnCheck(mouse);
@@ -344,18 +373,47 @@ namespace Another_Game_Final_no_fugazy
             background.Update(gameTime);
             //--------------------------------Background END--------------------------------//
             // Play update logic for game elements can be added here
+
+
+
+
+            //--------------------------------TEST PLANE--------------------------------//
+            MouseState mouse = Mouse.GetState();
+
+
+            
+            pos1[pos1Index].BtnCheck(mouse);
+            pos2[pos2Index].BtnCheck(mouse);
+            pos3[pos3Index].BtnCheck(mouse);
+
+
+
+
+            Debug.WriteLine($"Enemy HP: {EnemyHP}, Player HP: {PlayerHP}");
+            //--------------------------------TEST PLANE--------------------------------//
+
+
+
             Debug.WriteLine("In Play Update GE");
-
-
         }
 
 
         public static void Play_DrawGE(SpriteBatch spriteBatch)
         {
-            // Drawing logic for game elements can be added here
+
             //--------------------------------Background--------------------------------//
             background.Draw(spriteBatch);
             //--------------------------------Background--------------------------------//
+
+
+
+            // Drawing logic for game elements can be added here
+            //--------------------------------TEST PLANE--------------------------------//
+            pos1[pos1Index].BtnMake(spriteBatch);
+            pos2[pos2Index].BtnMake(spriteBatch);
+            pos3[pos3Index].BtnMake(spriteBatch);
+            //--------------------------------TEST PLANE--------------------------------//
+
         }
 
 

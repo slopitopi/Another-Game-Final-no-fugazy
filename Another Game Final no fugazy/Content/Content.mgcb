@@ -20,7 +20,7 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
-#begin images/BattleGroundSprites/BattleGround2/Reze.jpg
+#begin images/BattleGround1/Battleground_BG1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -30,7 +30,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/BattleGroundSprites/BattleGround2/Reze.jpg;images/BattleGroundSprites/BattleGround2/Reze
+/build:images/BattleGround1/Battleground_BG1.png;images/Battleground/Battleground_BG1
 
 #begin images/Cards/Card1.png
 /importer:TextureImporter

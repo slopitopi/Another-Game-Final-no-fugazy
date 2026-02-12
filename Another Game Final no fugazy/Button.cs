@@ -23,13 +23,13 @@ namespace Another_Game_Final_no_fugazy
         private Vector2 vector;
         //--------------------------------Game State Management--------------------------------//
 
-        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color? normalColor = null, Color? hoverColor = null) : base(texture, x, y)
+        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y)
         {
             this.texture = texture;
             this.rect = new Rectangle(x, y, width, height);
             this.onClick = onClick;
-            this.normalColor = normalColor ?? Color.White;
-            this.hoverColor = hoverColor ?? Color.Red;
+            this.normalColor = normalColor;
+            this.hoverColor = hoverColor;
             this.currentColor = this.normalColor;
             this.wasPressed = false;
         }
@@ -59,7 +59,7 @@ namespace Another_Game_Final_no_fugazy
             else if (wasPressed && mouseState.LeftButton == ButtonState.Released)
             {
                 wasPressed = false;
-                onClick?.Invoke(); // Trigger the action
+                onClick.Invoke(); // Trigger the action
             }
 
             else if (!isHovering)

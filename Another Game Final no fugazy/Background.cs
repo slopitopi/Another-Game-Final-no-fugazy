@@ -12,7 +12,7 @@ namespace Another_Game_Final_no_fugazy
 {
     internal class Background
     {
-        private readonly Dictionary<GameElements.State, BackgroundAsset> _assets;
+        private Dictionary<GameElements.State, BackgroundAsset> _assets;
         private BackgroundAsset _currentAsset;
         private float _elapsedTime;
         private int _currentFrame;

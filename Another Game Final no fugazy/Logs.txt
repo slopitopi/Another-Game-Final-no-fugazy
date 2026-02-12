@@ -643,3 +643,76 @@ Check in with her about the new plan and see if she is ok with it
 Start with the card system and try to get a basic version of it working with just one card and then build from there.
 
 ^^^^T-8 days until the D-day^^^^
+
+________________________
+
+Actually i have a hard time going to sleep not knowing if its going to work so im going to try and start with the card system tonight and see if i can get a basic version of it working.
+
+First ill make tbe background for the battleground and then ill make class Card inherits from Button and then make a list of names with the things cards do. 
+No i need to make an array in order to pull out random cards from it and add a swich case for each card to define it as the new thing that it is supposed to do.
+
+-------------23:24-------------
+It works. it works just as i imagined it would. I can click on the card and it does the action of the card now ill take some time to find a way to make it randomly 
+generate a new card after i click on it and then ill add more cards to the card pool and make them do different things.
+
+My plan is to make a random number generator that generates a number between 0 and 3 because that how many cards i have ready but 
+i imagie it will look sonething like this:
+
+deck[random.Next(0, 3)]]
+
+and do that 3 times...
+im almost certain it will not work but better try it just in case im a genious and just rigth.
+
+damn. i just realized that the cards are set to a fixed position so even if it works if i happen to get 2 attack cards theyll be ontop of eachotehr not next to each other. 
+meaning i could make a new 3 deck one for each card slot and then when i click on the card it will pull a random card from the card pool and put it in the slot that i clicked on.
+
+-------------23:46-------------
+Well the good news is that it works as inteded, perhaps even a litte too well because all the cards are shuffling between themselves 
+like 100 times every second.
+And i have no idea how to solve it. 
+
+I imagine that i have to make a seperate class that only updates the random part whenever i click on the card.
+so i have to make a class that i can put into the buttons action part and that should.
+
+Like this here
+https://stackoverflow.com/questions/11430683/save-generated-random-numbers-for-later-use 
+
+-------------00:06-------------
+Well that failed and i dont really want to do it like that anyway since it will be annoying to deal with. the issue is that it updates once every time there is an update in the game. i need to make something random and capture that in a variable 
+and then only update that variable when i click on the card. but i have no clue how to do that.
+
+when i asked AI for ideas it said i could try adding this  
+
+randomCardGen = new Random();
+pos_Index = randomCardGen.Next(2);
+
+
+because what its supposed to do is save it as a static int variable and then i can reddefine it whenever i click on the card buutton by
+pos_Index = randomCardGen.Next(pos_.Length);*
+
+and make the draw and update method use the pos_Index variable instead of the random generator itself.
+Im a bit sceptical about it still. Because i dont really understand why it saves it only once as a pos_Index and then only changes it when i click on the card.
+But ill put it in anyway.
+
+-------------00:28-------------
+Just like that it works. I have no clue how but it works. but since i used AI and im writing about it i feel like i have a responsibility to understand it. 
+so im going to try and spend a bit of time trying to understand how it works. and then explain it here.
+
+Ok so as i understand it, the randomCardGen is still constantly generating random numbers but what pos_Index
+is doing is capturing a random moment in the generator and defining itself as that and by putting the index in the array instead makes it a single card
+
+and when we put the pos_Index = randomCardGen.Next(pos_.Length); in the action part of the card button it redefines the pos_Index as a new random number 
+from the gerator for just a moment when you releace the card button because thats how the button is made. it only captures the update on the moment of releace
+
+it makes a lot of sense now that i think about it. its actually really smart and simple. and it works perfectly. so im really happy about that.
+
+What i am still a litte bit scared about is how this will look like in terms of a grade. because i know that the code 
+is not the best and the new methods are far too long and not very well optimized. 
+
+BUT ALAS ITS THE END OF MY ENERGY SO IM GOING TO END IT HERE FOR TODAY. so hereis the official agenda for tomorrow:
+
+___TOMORROW___
+Tell Tatiana that i have decided to kinda restart ish with this
+Check in with her about the new plan and see if she is ok with it
+
+Start with the enemy that just takes damage. Using my multiple other game examples as refrences
