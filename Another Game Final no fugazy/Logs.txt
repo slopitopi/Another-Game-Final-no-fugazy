@@ -615,10 +615,31 @@ good programming is 90% planning and 10% actual coding. So ill take my time to p
 
 Bad news 
 
-ive wasted 3 days doing nothing meaningful but better late than never.
+ive wasted 3 days doing nothing meaningful.
 
-its going to start very generically with:
 
-GameObject --> Has position and texture and basic update and draw methods
 
-Assets --> Inherits from GameObject and has methods for loading and unloading assets
+12/02/26 - 22:20
+Bad bad bad 
+Im back again a week later and i have done nothing.
+
+But ive come up with a very simple way to implement the battle state and the card system without making things too complex or messy.
+
+Basically the buttons allow me to make an action when i click on them. 
+So i can just make a button for each card and then when i click on the card it will do the action of the card.
+
+Ill have them in a list and then when i click on the card the one that i click on will do its action and then be 
+removed from the hand and replaced with a new random card from the card assortment.
+
+Its definitely
+easier said than done because i have no clue how to actually make
+the cards do damage other than just putting a DamageEnemy() method in
+the action part and hoping that works. But i have a feeling that it wont be that simple but i think its still possible to acheeve it
+and get it done in time.
+
+___TOMORROW___
+Tell Tatiana that i have decided to kinda restart ish with this
+Check in with her about the new plan and see if she is ok with it
+Start with the card system and try to get a basic version of it working with just one card and then build from there.
+
+^^^^T-8 days until the D-day^^^^

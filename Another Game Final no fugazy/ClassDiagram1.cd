@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Another_Game_Final_no_fugazy.GameObject">
-    <Position X="15.25" Y="3.25" Width="1.5" />
+    <Position X="15" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAgAAAAAAAEAAAAAAQgAAAAAAAAAAYAA=</HashCode>
       <FileName>BasicPlayObjects.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Button">
-    <Position X="18.25" Y="8.75" Width="1.5" />
+    <Position X="18.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAgAAAAACAAAAAAAAoQAAgAAAQgAAAAAAAAAAAAA=</HashCode>
       <FileName>Button.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Another_Game_Final_no_fugazy.CardDeck" Collapsed="true">
-    <Position X="13.75" Y="22.75" Width="1.5" />
+  <Class Name="Another_Game_Final_no_fugazy.CardDeck">
+    <Position X="25.5" Y="18.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CardDeck.cs</FileName>
@@ -65,14 +65,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Background">
-    <Position X="35.25" Y="17.75" Width="1.5" />
+    <Position X="30.75" Y="18.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQABAAAAAAAAgAAAQAQAAAAAAAAAEAAAAAAAAMAAAA=</HashCode>
       <FileName>Background.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.BackgroundAsset">
-    <Position X="35.25" Y="15.5" Width="1.5" />
+    <Position X="30.75" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BackgroundAsset.cs</FileName>

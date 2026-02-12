@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Another_Game_Final_no_fugazy
 {
+
+    //Purly for the dictionary to function
     internal class BackgroundAsset
     {
         public Texture2D[] Textures { get; }

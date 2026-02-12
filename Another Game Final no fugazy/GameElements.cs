@@ -105,15 +105,7 @@ namespace Another_Game_Final_no_fugazy
 
             //--------------------------------Universal Stuff--------------------------------//
             backButton = new Button(
-                content.Load<Texture2D>("images/Instructions/BackButton"),
-                window.ClientBounds.Width - 110,
-                window.ClientBounds.Height - 60,
-                100,
-                50,
-                () => currentState = State.Menu,
-                Color.White,
-                Color.Red
-            );
+                content.Load<Texture2D>("images/Instructions/BackButton"), window.ClientBounds.Width - 110, window.ClientBounds.Height - 60, 100, 50, () => currentState = State.Menu, Color.White, Color.Red);
             //--------------------------------Universal Stuff END--------------------------------//
 
 
@@ -141,11 +133,10 @@ namespace Another_Game_Final_no_fugazy
                 "Instructions:\n\n" +
 
                 "1. Use the mouse to interact with everything.\n" +
-                "2. Press the spacebar to jump.\n" +
-                "3. Collect coins to increase your score.\n" +
-                "4. Avoid enemies to stay alive.\n" +
-                "5. Reach the end of the level to win!\n\n" +
-                "Good luck and have fun!";
+                "2. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
+                "3. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
+                "4. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
+                "5. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n";
 
 
 
@@ -155,7 +146,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //--------------------------------Background--------------------------------//
-            // Menu background (animated example with multiple frames)
+            // Menu background
             background.AddBackground(State.Menu, new BackgroundAsset(
                 new[] { 
                     content.Load<Texture2D>("images/menu/frame_00"),
