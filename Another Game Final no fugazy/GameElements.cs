@@ -20,6 +20,16 @@ namespace Another_Game_Final_no_fugazy
 
 
         //--------------------------------TEST PLANE--------------------------------//
+        private static TurnLogic turnLogic;
+        //--------------------------------TEST PLANE END--------------------------------//
+
+
+
+
+
+
+
+        //--------------------------------CardSystem--------------------------------//
         private static Card[] deck, pos1, pos2, pos3;
 
         private static int EnemyHP = 100;
@@ -27,10 +37,7 @@ namespace Another_Game_Final_no_fugazy
 
         private static Random randomCardGen;
         private static int pos1Index, pos2Index, pos3Index;
-        //--------------------------------TEST PLANE END--------------------------------//
-
-
-
+        //--------------------------------CardSystem END--------------------------------//
 
 
 
@@ -105,6 +112,29 @@ namespace Another_Game_Final_no_fugazy
         {
 
             //--------------------------------TEST PLANE--------------------------------//
+
+            //--------------------------------TEST PLANE END--------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //--------------------------------CardSystem--------------------------------//
             pos1 = new Card[]
             {
                 new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ EnemyHP -= 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
@@ -128,13 +158,15 @@ namespace Another_Game_Final_no_fugazy
             pos1Index = randomCardGen.Next(2);
             pos2Index = randomCardGen.Next(2);
             pos3Index = randomCardGen.Next(2);
-            //--------------------------------TEST PLANE END--------------------------------//
+            //--------------------------------CardSystem END--------------------------------//
+
+
+
 
 
 
             //--------------------------------Universal Stuff--------------------------------//
-            backButton = new Button(
-                content.Load<Texture2D>("images/Instructions/BackButton"), window.ClientBounds.Width - 110, window.ClientBounds.Height - 60, 100, 50, () => currentState = State.Menu, Color.White, Color.Red);
+            backButton = new Button(content.Load<Texture2D>("images/Instructions/BackButton"), window.ClientBounds.Width - 110, window.ClientBounds.Height - 60, 100, 50, () => currentState = State.Menu, Color.White, Color.Red);
             //--------------------------------Universal Stuff END--------------------------------//
 
 
@@ -147,7 +179,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //--------------------------------HighScore--------------------------------//
-            highscore = new HighScore(10); // List holds a maximum of 10 entries
+            highscore = new HighScore(10); // List holds a maximum of 10 scores
             myFont = content.Load<SpriteFont>("File");
 
             highscore.LoadFromFile("highscore.txt");
@@ -377,20 +409,32 @@ namespace Another_Game_Final_no_fugazy
 
 
 
+
+
+
             //--------------------------------TEST PLANE--------------------------------//
+
+            //--------------------------------TEST PLANE--------------------------------//
+
+
+
+
+
+
+
+
+
+
+            //--------------------------------CardSystem--------------------------------//
             MouseState mouse = Mouse.GetState();
 
-
-            
             pos1[pos1Index].BtnCheck(mouse);
             pos2[pos2Index].BtnCheck(mouse);
             pos3[pos3Index].BtnCheck(mouse);
 
-
-
-
             Debug.WriteLine($"Enemy HP: {EnemyHP}, Player HP: {PlayerHP}");
-            //--------------------------------TEST PLANE--------------------------------//
+            //--------------------------------CardSystem END--------------------------------//
+
 
 
 

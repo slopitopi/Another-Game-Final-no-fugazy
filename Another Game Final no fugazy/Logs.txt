@@ -716,3 +716,77 @@ Tell Tatiana that i have decided to kinda restart ish with this
 Check in with her about the new plan and see if she is ok with it
 
 Start with the enemy that just takes damage. Using my multiple other game examples as refrences
+
+
+
+
+
+
+
+13/02/26 - 08:32
+So i just presented my thing and eerything seems preatty good to go with her.
+
+I think im going to start with the TurnSystem here in school and the Enemy class later tonigth. 
+Im still a bit sceptical when it comes to the card system because i have to also put in a select enemy system
+but we can start small.
+
+first we make a turn system inspired by my older gameProject and try to explain it better and then in that we make
+an enemy and then finally we make multiple enemies and a select system.
+
+first i need to make something that stores the turns so i can add another thing into the card 
+ststem that adds one to the turn counter every time i click on it and then when the turn 
+counter.
+
+I did this so far
+===============
+CODE
+===============
+       int Turncounter;
+        protected Action DidSomething;
+        protected bool PlayerTurn = false;
+        private bool CardEnabled = true;
+        private float TurnTimer = 3f;
+
+        public TurnLogic(int turnCounter)
+        {
+            Turncounter =  turnCounter;
+        }
+
+        public void StartTurn(GameTime gameTime)
+        {
+            PlayerTurn = true;
+            CardEnabled = true;
+            if (PlayerTurn)
+            {
+                Console.WriteLine("Player's turn");
+
+            }
+        }
+
+        public void PlayerTurnOver(GameTime gameTime)
+        {
+            Console.WriteLine("Player's turn is over \n");
+            Console.WriteLine("Enemy's turn");
+
+            if (TurnTimer != 0)
+            {
+                TurnTimer = TurnTimer - (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
+            PlayerTurn = false;
+            CardEnabled = false;
+            Turncounter++;
+
+            StartTurn(gameTime);
+
+            Debug.WriteLine($"{Turncounter}");
+        }
+
+===============
+CODE END
+===============
+
+And it dosesnt work really wll because the timer dosent work properly and it just spams the console with "Enemy's turn"
+so ill take my time fixing it at home later today.
+
+-------------09:22-------------
