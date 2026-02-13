@@ -8,14 +8,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Button">
-    <Position X="18.5" Y="8.75" Width="1.5" />
+    <Position X="19" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAgAAAAACAAAAAAAAoQAAgAAAQgAAAAAAAAAAAAA=</HashCode>
       <FileName>Button.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.CardDeck">
-    <Position X="25.5" Y="18.5" Width="1.5" />
+    <Position X="26" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CardDeck.cs</FileName>
@@ -79,17 +79,60 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Card">
-    <Position X="18.5" Y="14.25" Width="1.5" />
+    <Position X="19" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Card.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.TurnLogic">
-    <Position X="27" Y="13" Width="1.5" />
+    <Position X="25.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAgACAEAAAAAAAAAAIAACAAAAgAAA=</HashCode>
       <FileName>TurnLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.CombatEntity" Collapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>CombatEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.Effect" Collapsed="true">
+    <Position X="15" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Effect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.Enemy" Collapsed="true">
+    <Position X="7.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler" Collapsed="true">
+    <Position X="7.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyBrawler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.EnemyHealer" Collapsed="true">
+    <Position X="11" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyHealer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.EnemyMage" Collapsed="true">
+    <Position X="4" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyMage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Another_Game_Final_no_fugazy.ICombatant">

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Another_Game_Final_no_fugazy
 {
-    //internal class EnemyHealer : Enemy
-    //{
-    //}
+    internal class EnemyHealer : Enemy
+    {
+    }
 }

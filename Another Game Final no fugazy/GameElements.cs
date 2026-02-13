@@ -419,12 +419,6 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-
-
-
-
-
-
             //--------------------------------CardSystem--------------------------------//
             MouseState mouse = Mouse.GetState();
 

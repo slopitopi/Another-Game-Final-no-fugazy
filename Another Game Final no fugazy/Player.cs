@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Another_Game_Final_no_fugazy
 {
-    //internal class Player : CombatEntity
-    //{
-    //    public override int CurrentHP => throw new NotImplementedException();
-    //    public override int MaxHP => throw new NotImplementedException();
-    //    public override bool IsAlive => throw new NotImplementedException();
+    internal class Player : CombatEntity
+    {
+        public override int CurrentHP => throw new NotImplementedException();
+        public override int MaxHP => throw new NotImplementedException();
+        public override bool IsAlive => throw new NotImplementedException();
 
-    //    public override void TakeDamage(int amount) => throw new NotImplementedException();
-    //    public override void Heal(int amount) => throw new NotImplementedException();
-    //    public override void Attack(ICombatant target) => throw new NotImplementedException();
-    //}
+        public override void TakeDamage(int amount) => throw new NotImplementedException();
+        public override void Heal(int amount) => throw new NotImplementedException();
+        public override void Attack(ICombatant target) => throw new NotImplementedException();
+    }
 }
