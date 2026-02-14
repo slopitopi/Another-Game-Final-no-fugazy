@@ -790,3 +790,49 @@ And it dosesnt work really wll because the timer dosent work properly and it jus
 so ill take my time fixing it at home later today.
 
 -------------09:22-------------
+
+
+
+
+
+14/02/26 - 20:37
+Bad news. Yesterday i was ment to finish the turn system and make a basic enemy class but i decided to enjoy myself by not doing anything. Now i have twice as much on my shoulders
+and i have even less time to do it.
+
+regardless ill starty looking for ideas on a turn system and ways to improve class stucture.
+
+Ive fixed my current class stucture basing it all of of pressable objects as the base for everything
+Sadly i cant put in images here but i made a file where you can see everything. 
+
+IN THE FILE PlanImages:
+
+A Photo called:
+""Basic Structure""
+
+-------------22:01-------------
+Im stuggeling to think of what the card field should have in it to make it different from the button class.
+Rigth now this is what a card looks like:
+new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ EnemyHP -= 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
+
+Im thinking maybe i make a public virtual void OnClick() method and override it in the card class and make it do something depenting on the name so i dont have to type it out every time.
+instead i can just write something like:
+new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () => OnAction, Color.White, Color.Red),
+and it will understand directly that all it has to do is just do the damage action without me having to write it out every time.
+
+
+-------------00:47-------------
+Good news i managed to lock in and revamp alot of the class structure and make it alot more professional with way more inheritence and polymorphism.
+Without braking anything major. 
+On the other hand i havent done anyting new other than add an CombatEntity class that has other enemy classes like EnemyBrawler and i managed to make it so that
+he has a 70% chance of damaging and a 30% chanse of healing. This will be changed for all the other enemys as well of course like the healer is obveiously going to heal more 
+than he is attack.
+
+but i think things went preatty decenty for the past few hours. Now i have even more work on my shoulders. but that is a problem for future me to deal with.
+fuck that guy am i rigth. regardless i still have quite a bit to revamp but it should be done by tomorrow. As for the rest of the day ill spend it waching the
+holy grail, the best show ive seen in a very long time Oshi No Ko or My Star in english
+
+
+___TOMORROW___
+Finish the revamp 
+Move on to the Turn system
+And see what else you can do.

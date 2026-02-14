@@ -3,26 +3,19 @@
   <Class Name="Another_Game_Final_no_fugazy.GameObject">
     <Position X="15" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAgAAAAAAAEAAAAAAQgAAAAAAAAAAYAA=</HashCode>
+      <HashCode>AAQEAgAAAAAAAgAAAAAAIQACgAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>BasicPlayObjects.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Button">
-    <Position X="19" Y="7.75" Width="1.5" />
+    <Position X="19.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAgAAAAACAAAAAAAAoQAAgAAAQgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Button.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Another_Game_Final_no_fugazy.CardDeck">
-    <Position X="26" Y="14.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CardDeck.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Another_Game_Final_no_fugazy.GameElements">
-    <Position X="23.75" Y="8.5" Width="1.5" />
+    <Position X="26" Y="8.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -39,104 +32,75 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAABgFiIAAwJEAEIwACgAEAAYAACEDACAAAAAQAYAs=</HashCode>
+      <HashCode>AAAABgFiIAAwJEAEIwACgAEgAYAACEDACAAAAAQAYAs=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.HighScore">
-    <Position X="31.5" Y="9.25" Width="1.5" />
+    <Position X="33.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIgAAAgKgCAAAAIAAASAAAAAAAkAAAAQAAAAAAAEAA=</HashCode>
       <FileName>HighScore.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.HSItem">
-    <Position X="29.5" Y="9.25" Width="1.5" />
+    <Position X="31.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAgAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>HSItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Instructions">
-    <Position X="29.5" Y="12" Width="1.5" />
+    <Position X="31.75" Y="11.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAgAAAEAQAAAAAACEAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIQCAAyAAA=</HashCode>
       <FileName>Instructions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Background">
-    <Position X="30.75" Y="18.75" Width="1.5" />
+    <Position X="34" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQABAAAAAAAAgAAAQAQAAAAAAAAAEAAAAAAAAMAAAA=</HashCode>
       <FileName>Background.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.BackgroundAsset">
-    <Position X="30.75" Y="16.5" Width="1.5" />
+    <Position X="34" Y="15.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BackgroundAsset.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Card">
-    <Position X="19" Y="13.25" Width="1.5" />
+    <Position X="19.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAABAAAUCAAAEAAAACAAAAAIAAAA=</HashCode>
       <FileName>Card.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.TurnLogic">
-    <Position X="25.75" Y="10.5" Width="1.5" />
+    <Position X="28" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAgACAEAAAAAAAAAAIAACAAAAgAAA=</HashCode>
       <FileName>TurnLogic.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Another_Game_Final_no_fugazy.CombatEntity" Collapsed="true">
-    <Position X="7.5" Y="7.5" Width="1.5" />
+  <Class Name="Another_Game_Final_no_fugazy.CombatEntity">
+    <Position X="11.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>CAAAAAAGAAIAAACAAAAACAECAIACAAAAAAAAgABAAAA=</HashCode>
       <FileName>CombatEntity.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Another_Game_Final_no_fugazy.Effect" Collapsed="true">
-    <Position X="15" Y="10.25" Width="1.5" />
+  <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler">
+    <Position X="13.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Effect.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Another_Game_Final_no_fugazy.Enemy" Collapsed="true">
-    <Position X="7.5" Y="9.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>Enemy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler" Collapsed="true">
-    <Position X="7.5" Y="12" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAEARAAAAAAAA=</HashCode>
       <FileName>EnemyBrawler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Another_Game_Final_no_fugazy.EnemyHealer" Collapsed="true">
-    <Position X="11" Y="12.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EnemyHealer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Another_Game_Final_no_fugazy.EnemyMage" Collapsed="true">
-    <Position X="4" Y="12.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EnemyMage.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Interface Name="Another_Game_Final_no_fugazy.ICombatant">
-    <Position X="23.75" Y="5.5" Width="1.5" />
+    <Position X="26" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>ICombatant.cs</FileName>

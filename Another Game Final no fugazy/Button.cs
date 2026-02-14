@@ -12,65 +12,8 @@ namespace Another_Game_Final_no_fugazy
     internal class Button : GameObject
     {
 
-        //--------------------------------Game State Management--------------------------------//
-        private Texture2D texture;
-        private Rectangle rect;
-        private Color normalColor;
-        private Color hoverColor;
-        private Color currentColor;
-        private Action onClick;
-        private bool wasPressed;
-        private Vector2 vector;
-        //--------------------------------Game State Management--------------------------------//
-
-        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y)
+        public Button(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
         {
-            this.texture = texture;
-            this.rect = new Rectangle(x, y, width, height);
-            this.onClick = onClick;
-            this.normalColor = normalColor;
-            this.hoverColor = hoverColor;
-            this.currentColor = this.normalColor;
-            this.wasPressed = false;
-        }
-
-
-
-
-        /// <summary>
-        /// Checks for mouse hover and click events to update button state and trigger actions.
-        /// 
-        /// It changes button color and makes sure it registers the click and exicutes the action.
-        /// </summary>
-        /// <param name="mouseState"></param>
-        public void BtnCheck(MouseState mouseState)
-        {
-            bool isHovering = rect.Contains(mouseState.X, mouseState.Y);
-
-            // Update color based on hover state
-            currentColor = isHovering ? hoverColor : normalColor;
-
-            // Handle click with press/release detection
-            if (isHovering && mouseState.LeftButton == ButtonState.Pressed)
-            {
-                wasPressed = true;
-            }
-
-            else if (wasPressed && mouseState.LeftButton == ButtonState.Released)
-            {
-                wasPressed = false;
-                onClick.Invoke(); // Trigger the action
-            }
-
-            else if (!isHovering)
-            {
-                wasPressed = false;
-            }
-        }
-
-        public void BtnMake(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, rect, currentColor);
         }
     }
 }

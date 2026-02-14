@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Another_Game_Final_no_fugazy
 {
@@ -60,6 +61,7 @@ namespace Another_Game_Final_no_fugazy
         private static Instructions instructions;
         private static Button backButton;
         private static SpriteFont insttructionFont;
+        private static Vector2 textSize;
         //-------------------------------Instructions Text END--------------------------------//
 
 
@@ -112,7 +114,7 @@ namespace Another_Game_Final_no_fugazy
         {
 
             //--------------------------------TEST PLANE--------------------------------//
-
+            
             //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -199,9 +201,10 @@ namespace Another_Game_Final_no_fugazy
                 "4. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
                 "5. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n";
 
+            textSize = insttructionFont.MeasureString(instructionsText);
 
 
-            instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice);
+            instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice ,new Vector2((1280 - textSize.X) / 2, (720 - textSize.Y) / 2 - 50));
             //-------------------------------Instructions Text END--------------------------------//
 
 
@@ -357,7 +360,7 @@ namespace Another_Game_Final_no_fugazy
             
             foreach (Button button in menuButtons)
             {
-                button.BtnCheck(mouse);
+                button.Update(mouse);
             }
             //-------------------------------MenuButtons--------------------------------//
 
@@ -378,7 +381,7 @@ namespace Another_Game_Final_no_fugazy
             //-------------------------------MenuButtons--------------------------------//
             foreach (Button button in menuButtons)
             {
-                button.BtnMake(spriteBatch);
+                button.Draw(spriteBatch);
             }
             //-------------------------------MenuButtons END--------------------------------//
 
@@ -422,9 +425,9 @@ namespace Another_Game_Final_no_fugazy
             //--------------------------------CardSystem--------------------------------//
             MouseState mouse = Mouse.GetState();
 
-            pos1[pos1Index].BtnCheck(mouse);
-            pos2[pos2Index].BtnCheck(mouse);
-            pos3[pos3Index].BtnCheck(mouse);
+            pos1[pos1Index].Update(mouse);
+            pos2[pos2Index].Update(mouse);
+            pos3[pos3Index].Update(mouse);
 
             Debug.WriteLine($"Enemy HP: {EnemyHP}, Player HP: {PlayerHP}");
             //--------------------------------CardSystem END--------------------------------//
@@ -447,9 +450,9 @@ namespace Another_Game_Final_no_fugazy
 
             // Drawing logic for game elements can be added here
             //--------------------------------TEST PLANE--------------------------------//
-            pos1[pos1Index].BtnMake(spriteBatch);
-            pos2[pos2Index].BtnMake(spriteBatch);
-            pos3[pos3Index].BtnMake(spriteBatch);
+            pos1[pos1Index].Draw(spriteBatch);
+            pos2[pos2Index].Draw(spriteBatch);
+            pos3[pos3Index].Draw(spriteBatch);
             //--------------------------------TEST PLANE--------------------------------//
 
         }
@@ -480,7 +483,7 @@ namespace Another_Game_Final_no_fugazy
 
             //-------------------------------Back Button--------------------------------//
             MouseState mouse = Mouse.GetState();
-            backButton.BtnCheck(mouse);
+            backButton.Update(mouse);
             //-------------------------------Back Button END--------------------------------//
 
 
@@ -500,7 +503,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //-------------------------------Back Button--------------------------------//
-            backButton.BtnMake(spriteBatch);
+            backButton.Draw(spriteBatch);
             //-------------------------------Back Button--------------------------------//
 
         }
@@ -532,7 +535,7 @@ namespace Another_Game_Final_no_fugazy
 
             //-------------------------------Back Button--------------------------------//
             MouseState mouse = Mouse.GetState();
-            backButton.BtnCheck(mouse);
+            backButton.Update(mouse);
             //-------------------------------Back Button END--------------------------------//
 
             //--------------------------------HighScore--------------------------------//
@@ -580,7 +583,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //-------------------------------Back Button--------------------------------//
-            backButton.BtnMake(spriteBatch);
+            backButton.Draw(spriteBatch);
             //-------------------------------Back Button--------------------------------//
 
             //--------------------------------HighScore--------------------------------//

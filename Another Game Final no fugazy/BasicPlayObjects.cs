@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,53 +9,77 @@ using System.Text;
 
 namespace Another_Game_Final_no_fugazy
 {
-    internal abstract class GameObject
+    internal class GameObject
     {
-        protected Texture2D texture;
-        protected Vector2 vector;
-        //--------------------------------konstruktor--------------------------//
 
-        public GameObject(Texture2D texture, float X, float Y)
+
+        //--------------------------------Game State Management--------------------------------//
+        protected Texture2D texture;
+        protected Rectangle rect;
+        protected Color normalColor;
+        protected Color hoverColor;
+        protected Color currentColor;
+        protected Action onClick;
+        protected bool wasPressed;
+        //--------------------------------Game State Management--------------------------------//
+
+        public GameObject(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor)
         {
             this.texture = texture;
-            vector.X = X;
-            vector.Y = Y;
+            this.rect = new Rectangle(x, y, width, height);
+            this.onClick = onClick;
+            this.normalColor = normalColor;
+            this.hoverColor = hoverColor;
+            this.currentColor = this.normalColor;
+            this.wasPressed = false;
         }
 
-        //--------------------------------konstruktor END--------------------------//
+        
+
+        public virtual void Update(MouseState mouseState)
+        {
+            bool isHovering = rect.Contains(mouseState.X, mouseState.Y);
+
+
+            if (isHovering)
+            {
+                currentColor = hoverColor;
+            }
+            else
+            {
+                currentColor = normalColor;
+            }
 
 
 
-        //--------------------------draw-----------------------//
+            if (isHovering && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                wasPressed = true;
+            }
+
+            else if (wasPressed && mouseState.LeftButton == ButtonState.Released)
+            {
+                wasPressed = false;
+                onClick.Invoke();
+            }
+
+            else if (!isHovering)
+            {
+                wasPressed = false;
+            }
+        }
+
+
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, vector, Color.White);
+            spriteBatch.Draw(texture, rect, currentColor);
         }
-        //--------------------------draw END-----------------------//
 
 
-
-
-        //------------------egenskaper----------------------//
-        public float X
+        public virtual void OnClick()
         {
-            get { return vector.X; }
+            onClick.Invoke();
         }
-
-        public float Y
-        {
-            get { return vector.Y; }
-        }
-
-        public float Width
-        {
-            get { return texture.Width; }
-        }
-
-        public float Height
-        {
-            get { return texture.Height; }
-        }
-        //------------------egenskaper Slut----------------------//
     }
 }
