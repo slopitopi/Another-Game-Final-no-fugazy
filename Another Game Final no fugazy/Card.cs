@@ -16,9 +16,10 @@ namespace Another_Game_Final_no_fugazy
     internal class Card : GameObject
     {
         protected string Name;
-        protected int pos3Index;
         private Instructions instructions;
         private SpriteFont font;
+        bool SelectableCard = false;
+        bool CardSelected = false;
 
         public Card(string name, Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
         {
@@ -30,19 +31,24 @@ namespace Another_Game_Final_no_fugazy
             get { return Name; }
         }
 
-        public void CardInstruction(GraphicsDevice graphicsDevice)
+
+
+        public bool selectableCard
         {
-            instructions = new Instructions(font, "Select an Enemy", graphicsDevice, new Vector2(0, 50));
+            get { return SelectableCard; }
+            set { SelectableCard = value; }
         }
 
-        public override void OnClick()
+        public bool cardSelected
         {
-            SelectEnemy();
+            get { return CardSelected; }
+            set { CardSelected = value; }
         }
 
-        public void SelectEnemy()
+        public void PauseCard()
         {
-            
+            onClick = null;
         }
+
     }
 }

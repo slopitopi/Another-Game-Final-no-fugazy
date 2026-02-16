@@ -30,9 +30,14 @@
           <NewMemberFileName>GameElements.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
+      <Enum Name="Another_Game_Final_no_fugazy.GameElements.PlayPhase" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAABgFiIAAwJEAEIwACgAEgAYAACEDACAAAAAQAYAs=</HashCode>
+      <HashCode>AAACBgFiYAAwJEAEIwACgAkgAYAACEDACAAAAAQAYAs=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -74,7 +79,7 @@
   <Class Name="Another_Game_Final_no_fugazy.Card">
     <Position X="19.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAABAAAUCAAAEAAAACAAAAAIAAAA=</HashCode>
+      <HashCode>AAIAJAAAACAAAAAAAAAAAAQgAAAEIAAACAAAAAAAAAA=</HashCode>
       <FileName>Card.cs</FileName>
     </TypeIdentifier>
   </Class>

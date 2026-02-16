@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
@@ -22,6 +23,7 @@ namespace Another_Game_Final_no_fugazy
 
         //--------------------------------TEST PLANE--------------------------------//
         private static TurnLogic turnLogic;
+        private static Card card;
         //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -38,6 +40,11 @@ namespace Another_Game_Final_no_fugazy
 
         private static Random randomCardGen;
         private static int pos1Index, pos2Index, pos3Index;
+
+
+        private enum PlayPhase { SelectCard, SelectEnemy };
+        private static PlayPhase currentPlayPhase;
+
         //--------------------------------CardSystem END--------------------------------//
 
 
@@ -58,7 +65,7 @@ namespace Another_Game_Final_no_fugazy
 
 
         //-------------------------------Instructions Text--------------------------------//
-        private static Instructions instructions;
+        private static Instructions instructions, cardInstrucions;
         private static Button backButton;
         private static SpriteFont insttructionFont;
         private static Vector2 textSize;
@@ -97,6 +104,7 @@ namespace Another_Game_Final_no_fugazy
         {
             currentState = State.Menu; // Set initial state to Menu
             background = new Background();
+            currentPlayPhase = PlayPhase.SelectCard;
         }
 
 
@@ -114,7 +122,7 @@ namespace Another_Game_Final_no_fugazy
         {
 
             //--------------------------------TEST PLANE--------------------------------//
-            
+
             //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -137,22 +145,24 @@ namespace Another_Game_Final_no_fugazy
 
 
             //--------------------------------CardSystem--------------------------------//
+            
+
             pos1 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ EnemyHP -= 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { PlayerHP += 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ EnemyHP -= 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("DmgCardPressed"); pos1[pos1Index].selectableCard = true; }, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { PlayerHP += 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("HealCardPressed"); pos1[pos1Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos2 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ EnemyHP -= 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { PlayerHP += 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ EnemyHP -= 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("DmgCardPressed"); pos2[pos2Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { PlayerHP += 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("HealCardPressed"); pos2[pos2Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos3 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ EnemyHP -= 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { PlayerHP += 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ EnemyHP -= 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("DmgCardPressed"); pos3[pos3Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { PlayerHP += 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("HealCardPressed"); pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
 
@@ -201,10 +211,19 @@ namespace Another_Game_Final_no_fugazy
                 "4. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
                 "5. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n";
 
+            string SelectCardText = "Select a Card";
+
             textSize = insttructionFont.MeasureString(instructionsText);
 
 
-            instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice ,new Vector2((1280 - textSize.X) / 2, (720 - textSize.Y) / 2 - 50));
+
+
+
+
+            instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice, new Vector2((1280 - textSize.X) / 2, (720 - textSize.Y) / 2 - 50));
+
+
+            cardInstrucions = new Instructions(insttructionFont, SelectCardText, graphicsDevice, new Vector2(0, 50));
             //-------------------------------Instructions Text END--------------------------------//
 
 
@@ -365,7 +384,7 @@ namespace Another_Game_Final_no_fugazy
             //-------------------------------MenuButtons--------------------------------//
 
 
-            Debug.WriteLine("In Menu Update GE");
+            //Debug.WriteLine("In Menu Update GE");
         }
 
 
@@ -425,17 +444,50 @@ namespace Another_Game_Final_no_fugazy
             //--------------------------------CardSystem--------------------------------//
             MouseState mouse = Mouse.GetState();
 
-            pos1[pos1Index].Update(mouse);
-            pos2[pos2Index].Update(mouse);
-            pos3[pos3Index].Update(mouse);
+            bool EnemyClicked = true;
+            switch(currentPlayPhase)
+            {
+                case PlayPhase.SelectCard:
+                    pos1[pos1Index].Update(mouse);
+                    pos2[pos2Index].Update(mouse);
+                    pos3[pos3Index].Update(mouse);
 
-            Debug.WriteLine($"Enemy HP: {EnemyHP}, Player HP: {PlayerHP}");
+                    if (pos1[pos1Index].selectableCard || pos2[pos2Index].selectableCard || pos3[pos3Index].selectableCard)
+                    {
+                        pos1[pos1Index].selectableCard = false;
+                        pos2[pos2Index].selectableCard = false;
+                        pos3[pos3Index].selectableCard = false;
+                        currentPlayPhase = PlayPhase.SelectEnemy;
+                        Debug.WriteLine("CARD HAS BEED SELECTED");
+
+                    }
+                    break;
+
+
+                case PlayPhase.SelectEnemy:
+                    //Show instructions
+                    if (EnemyClicked == true)
+                    {
+                        Debug.WriteLine("ENEMY HAS BEEN CLICKED");
+                        EnemyHP -= 10;
+                        pos1[pos1Index].selectableCard = false;
+                        pos2[pos2Index].selectableCard = false;
+                        pos3[pos3Index].selectableCard = false;
+                        currentPlayPhase = PlayPhase.SelectCard;
+
+                        currentState = State.Menu;
+                    }
+
+                    break;
+            }
+
+
             //--------------------------------CardSystem END--------------------------------//
 
 
 
 
-            Debug.WriteLine("In Play Update GE");
+            Debug.WriteLine($"PlayPhase {currentPlayPhase}");
         }
 
 
@@ -450,6 +502,14 @@ namespace Another_Game_Final_no_fugazy
 
             // Drawing logic for game elements can be added here
             //--------------------------------TEST PLANE--------------------------------//
+            if (pos1[pos1Index].selectableCard || pos2[pos2Index].selectableCard || pos3[pos3Index].selectableCard)
+            {
+                cardInstrucions.Draw(spriteBatch);
+            }
+
+
+
+
             pos1[pos1Index].Draw(spriteBatch);
             pos2[pos2Index].Draw(spriteBatch);
             pos3[pos3Index].Draw(spriteBatch);

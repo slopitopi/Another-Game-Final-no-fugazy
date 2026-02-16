@@ -34,7 +34,7 @@ namespace Another_Game_Final_no_fugazy
             this.wasPressed = false;
         }
 
-        
+
 
         public virtual void Update(MouseState mouseState)
         {
@@ -69,17 +69,16 @@ namespace Another_Game_Final_no_fugazy
             }
         }
 
-
-
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, currentColor);
         }
 
-
         public virtual void OnClick()
         {
             onClick.Invoke();
         }
+
+
     }
 }
