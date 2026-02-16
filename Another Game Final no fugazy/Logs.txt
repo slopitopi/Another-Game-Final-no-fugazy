@@ -836,3 +836,107 @@ ___TOMORROW___
 Finish the revamp 
 Move on to the Turn system
 And see what else you can do.
+
+
+
+
+
+
+
+15/02/26 - 19:49
+Ok im starting or more accuretly continuing on the restructuring of the classes. As for the show that i watched yesterday, it was one of the weaker episodes 
+with a bigger focuise on character development. 
+I would give it a 6/10.
+Next one comes out on wendsday.
+
+Regardless Enough idle chatter BACK TO WORK.
+
+Let me explain what im trying to do with the card class. i want to basically have it be a button with a name that defines what it is and then have an OnClick 
+method that first makes it so that you have to select an enemy before the card dose anything and then after you select the enemy it does 
+the action depending on the card name. 
+EX:
+
+if (name == damageCard)
+{
+    EnemyHP -= 10;
+}
+
+else if (name == HealCard)
+{
+    PlayerHP += 10;
+}
+
+else if (name == BuffCard)
+{
+    PlayerAttack += 5;
+}
+and so on
+
+Im doing this to make the card code a little shorter and cleaner because rigth now it looks like this:
+            pos3 = new Card[]
+            {
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ EnemyHP -= 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("DmgCardPressed");}, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { PlayerHP += 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("HealCardPressed");}, Color.White, Color.Green)
+            };
+
+i want to make it like this
+
+            pos3 = new Card[]
+            {
+                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, Color.White, Color.Red),
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, Color.White, Color.Green)
+            };
+
+
+which i think would make it way more sucure and cleaner in general, But that mean i have to remove the action part from the base Clickable class. i wonder if i can eved do this for
+the card colors as well. like make it so that the card colors are defined by the name as well making it:
+
+                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120)
+
+
+
+-------------00:02-------------
+
+
+Ok new plan. Lets forget everything because ive sat here for damn near 4 hours trying to figure out
+how to make the card class better and i just cant do it. 
+I have no clue how to make it so that the card action is defined by the name without making a complete mess of the code and making it really hard to work with.
+
+-------------03:48-------------
+This is not a joke i reapeat this is not a joke. though i really wish it was i got a litte hyperfocused and couldnt stop until
+i had at least something working and fuck me i kinda got it working.
+
+i managed to get the card system to make it so that if you press a card it waits until youve pressed an enemy in order to execute the cards supposed action 
+but only lord knows if that shit actually works or not i have a feeling that it dosent.
+
+Of course it dosent fucking function so back to the the good ol wip and the chain.
+
+You know what i give up on having most of the damage logic in the actual classes. that is way too annoying and difficult. ill just place it in gameElements. 
+better yet ill make a seperate class called battleLogic and use that as a blanck slate to build the thing by my self
+
+Im going to ise one of my older codes as a basis wich had this;
+
+        public enum TurnState
+        {
+            PlayerTurn,       
+            SelectingTarget,  
+            EnemyTurn,        
+            WaveCleared,      
+            BattleOver        
+        }
+
+It treats every part of it like a state and i can do states, because i actually understand them and they are clear as can be.
+
+-------------05:18-------------
+ive somehow managed to take 5 steps back. im a little retarded so i think i migth actually just rewind it completely to 
+before i fuck up somethinge esle
+Enougth for today.
+
+ive hardReverted everything back to what i had yesterday and i plan on not repeating the same stupid mistakes. 
+
+IF IT AINT BROKEN DONT FIX IT
+
+I hope ill pull some ungodly lock in to get this done in any case See ya tomorrow
+
+___TOMORROW___
+Dont be a faliour
