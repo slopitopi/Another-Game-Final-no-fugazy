@@ -147,27 +147,6 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-            //--------------------------------EnemySystem--------------------------------//
-            enemys = new List<CombatEntity>();
-
-            Texture2D tmpSprite = content.Load<Texture2D>("images/Enemy/EnemySprite");
-
-            for (int i = 0; i < 1; i++)
-            {
-                EnemyBrawler temp = new EnemyBrawler(tmpSprite, 400, 100, 80, 120, null, Color.White, Color.Red, 30, 8, 8);
-
-                temp.SetOnClick(() =>
-                {
-                    if (currentPlayPhase == PlayPhase.SelectEnemy)
-                    {
-                        clickedEnemy = temp;
-                    }
-                });
-                enemys.Add(temp);
-            }
-            //--------------------------------EnemySystem END--------------------------------//
-
-
 
 
 
@@ -244,7 +223,7 @@ namespace Another_Game_Final_no_fugazy
                 "4. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.\n" +
                 "5. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n";
 
-            string SelectCardText = "Select a Card";
+            string SelectCardText = "Select an Enemy";
 
             textSize = insttructionFont.MeasureString(instructionsText);
 
@@ -322,6 +301,32 @@ namespace Another_Game_Final_no_fugazy
             //-------------------------------MenuButtons END--------------------------------//
 
 
+
+
+            //--------------------------------EnemySystem--------------------------------//
+            enemys = new List<CombatEntity>();
+
+            Texture2D tmpSprite = content.Load<Texture2D>("images/Enemy/EnemySprite");
+
+            for (int i = 0; i < 1; i++)
+            {
+                EnemyBrawler temp = new EnemyBrawler(tmpSprite, 400, 100, 80, 120, null, Color.White, Color.Red, 30, 8, 8);
+
+                temp.SetOnClick(() =>
+                {
+                    if (currentPlayPhase == PlayPhase.SelectEnemy)
+                    {
+                        clickedEnemy = temp;
+                    }
+                });
+
+                Vector2 healthBarPos = new Vector2(400, 100 + 120);
+
+                temp.HealthBar = new HealthBar(insttructionFont, graphicsDevice, healthBarPos, temp);
+
+                enemys.Add(temp);
+            }
+            //--------------------------------EnemySystem END--------------------------------//
         }
 
 
@@ -480,9 +485,10 @@ namespace Another_Game_Final_no_fugazy
                 if (enemy.IsAlive)
                 {
                     enemy.Update(mouse);
+                    enemy.HealthBar.UpdateHealth();
                 }
-
             }
+
             //--------------------------------MINI EnemySystem END--------------------------------//
 
 
@@ -496,7 +502,7 @@ namespace Another_Game_Final_no_fugazy
                     pos1[pos1Index].Update(mouse);
                     pos2[pos2Index].Update(mouse);
                     pos3[pos3Index].Update(mouse);
-
+                    
 
 
 
@@ -543,7 +549,12 @@ namespace Another_Game_Final_no_fugazy
 
                             foreach (CombatEntity enemy in enemys)
                             {
-                                enemy.WaitTurns();
+                                if (enemy.IsAlive)
+                                {
+                                    enemy.WaitTurns();
+                                    enemy.HealthBar.UpdateHealth();
+                                }
+
                             }
 
                             switch (selectedCardPos)
@@ -584,13 +595,18 @@ namespace Another_Game_Final_no_fugazy
                         {
                             case "DamageCard":
                                 clickedEnemy.TakeDamage(10);
+                                clickedEnemy.HealthBar.UpdateHealth();
                                 break;
                         }
 
                         //--EnemySysten--//
                         foreach (CombatEntity enemy in enemys)
                         {
-                            enemy.WaitTurns();
+                            if (enemy.IsAlive)
+                            {
+                                enemy.WaitTurns();
+                            }
+
                         }
                         //--EnemySysten--//
 
@@ -666,6 +682,7 @@ namespace Another_Game_Final_no_fugazy
                 if (enemy.IsAlive)
                 {
                     enemy.Draw(spriteBatch);
+                    enemy.HealthBar.Draw(spriteBatch);
                 }
             }
             //--------------------------------EnemySystem END--------------------------------//

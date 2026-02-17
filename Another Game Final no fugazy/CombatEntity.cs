@@ -18,6 +18,8 @@ namespace Another_Game_Final_no_fugazy
         protected int turnsTillNextAction;
         protected int baseTTNA;
 
+        HealthBar healthBar;
+
 
 
         public CombatEntity(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor, int enemyMaxHp, int attackPower, int defensePower) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
@@ -47,6 +49,11 @@ namespace Another_Game_Final_no_fugazy
             get { return enemyMaxHP; }
         }
 
+        public HealthBar HealthBar
+        {
+            get;
+            set;
+        }
 
 
 
@@ -70,6 +77,7 @@ namespace Another_Game_Final_no_fugazy
             {
                 enemyHP = EnemyMaxHP;
             }
+
         }
 
         public abstract void PerformAction();

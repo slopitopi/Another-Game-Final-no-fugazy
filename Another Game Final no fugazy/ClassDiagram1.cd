@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Instructions">
-    <Position X="38.75" Y="12" Width="1.5" />
+    <Position X="16.25" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIQCAAyAAA=</HashCode>
       <FileName>Instructions.cs</FileName>
@@ -59,12 +59,12 @@
   <Class Name="Another_Game_Final_no_fugazy.CombatEntity">
     <Position X="11.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAGAAICQACAAAAAAAACAAABAAAAAAAAiAhAAAA=</HashCode>
+      <HashCode>AQAAAAAGAAICQACAAAAAAAACAAABAAAAABAAiAhQAAA=</HashCode>
       <FileName>CombatEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler">
-    <Position X="13.25" Y="12.25" Width="1.5" />
+    <Position X="13.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>EnemyBrawler.cs</FileName>
@@ -93,23 +93,16 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAACBgFhIAAwJEAEIwCCgAkgAYAADABACAAAAAQQYAs=</HashCode>
+      <HashCode>AAACBgFhIAAwJEAEIwCCgAkgAYAADABACAAAAAQAYAs=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.HealthBar">
-    <Position X="41.25" Y="16.25" Width="1.5" />
+    <Position X="18.75" Y="20.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACBAAAAAAAgAAAAAAAAAAAAAAAAAICAEAAAAEAAA=</HashCode>
+      <HashCode>AAAACBAAAAAAAgAAAAAAAAAAAAAAAAAACAEAAAAEAAA=</HashCode>
       <FileName>HealthBar.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Another_Game_Final_no_fugazy.ICombatant">
-    <Position X="26" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAACAAIAAEAAAAIAAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>ICombatant.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

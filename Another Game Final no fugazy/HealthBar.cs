@@ -13,15 +13,12 @@ namespace Another_Game_Final_no_fugazy
     internal class HealthBar : Instructions
     {
         private CombatEntity entity;
-        private Color fillColor;
-        private Color backColor;
-        private string text;
+        private Color fillColor = Color.Green;
+        private Color backColor = Color.Black;
 
-        public HealthBar(SpriteFont font, GraphicsDevice graphicsDevice, Vector2 position, CombatEntity entity, Color fillColor, Color backColor) : base(font, GetHealthText(entity), graphicsDevice, position)
+        public HealthBar(SpriteFont font, GraphicsDevice graphicsDevice, Vector2 position, CombatEntity entity) : base(font, GetHealthText(entity), graphicsDevice, position)
         {
             this.entity = entity;
-            this.fillColor = fillColor;
-            this.backColor = backColor;
         }
 
         public static string GetHealthText(CombatEntity entity)
@@ -34,7 +31,7 @@ namespace Another_Game_Final_no_fugazy
 
         public void UpdateHealth()
         {
-            text = $"{entity.EnemyHP} / {entity.EnemyMaxHP}";
+            Text = $"{entity.EnemyHP} / {entity.EnemyMaxHP}";
         }
 
 
@@ -42,10 +39,10 @@ namespace Another_Game_Final_no_fugazy
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(BackgroundTexture, BackgroundRect, Color.Black);
+            spriteBatch.Draw(BackgroundTexture, BackgroundRect, backColor);
 
             float healthProcent = (float)entity.EnemyHP / entity.EnemyMaxHP;
-            int backW = (int)BackgroundRect.Width * (int)healthProcent;
+            int backW = (int)(BackgroundRect.Width * healthProcent);
             backW = Math.Max(0, Math.Min(BackgroundRect.Width, backW));
 
             if (backW > 0)
@@ -54,7 +51,7 @@ namespace Another_Game_Final_no_fugazy
                 spriteBatch.Draw(BackgroundTexture, fillRectangle, fillColor);
             }
 
-            spriteBatch.DrawString(Font, text, TextPosition, Color.White);
+            spriteBatch.DrawString(Font, Text, TextPosition, Color.White);
         }
     }
 }

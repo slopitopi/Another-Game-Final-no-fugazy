@@ -28,9 +28,11 @@ namespace Another_Game_Final_no_fugazy
             {
                 Debug.WriteLine("Brawler Attacks!");
             }
+
             else
             {
                 Heal(5);
+                Debug.WriteLine($"BRAWLER HEAL ");
             }
         }
     }
