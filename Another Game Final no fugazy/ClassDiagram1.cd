@@ -3,7 +3,7 @@
   <Class Name="Another_Game_Final_no_fugazy.GameObject">
     <Position X="15" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQEAgAAAAAAAgAAAAAAIQACgAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQEAgAAAAAAAgAAAAAAIQACgAAAAgCAAAAAAAAAAAA=</HashCode>
       <FileName>BasicPlayObjects.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -12,33 +12,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Button.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Another_Game_Final_no_fugazy.GameElements">
-    <Position X="26" Y="8.25" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
-    <NestedTypes>
-      <Enum Name="Another_Game_Final_no_fugazy.GameElements.StateHighS" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GameElements.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-      <Enum Name="Another_Game_Final_no_fugazy.GameElements.State" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GameElements.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-      <Enum Name="Another_Game_Final_no_fugazy.GameElements.PlayPhase" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GameElements.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAACBgFiYAAwJEAEIwACgAkgAYAACEDACAAAAAQAYAs=</HashCode>
-      <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.HighScore">
@@ -56,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Instructions">
-    <Position X="31.75" Y="11.75" Width="1.5" />
+    <Position X="38.75" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIQCAAyAAA=</HashCode>
       <FileName>Instructions.cs</FileName>
@@ -79,29 +52,56 @@
   <Class Name="Another_Game_Final_no_fugazy.Card">
     <Position X="19.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAJAAAACAAAAAAAAAAAAQgAAAEIAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAIAAAACAAAAAAIAAAACQAAAAEAAAACAAAAAAAAAA=</HashCode>
       <FileName>Card.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Another_Game_Final_no_fugazy.TurnLogic">
-    <Position X="28" Y="10.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAgACAEAAAAAAAAAAIAACAAAAgAAA=</HashCode>
-      <FileName>TurnLogic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.CombatEntity">
     <Position X="11.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAGAAIAAACAAAAACAECAIACAAAAAAAAgABAAAA=</HashCode>
+      <HashCode>AQAAAAAGAAICQACAAAAAAAACAAABAAAAAAAAiAhAAAA=</HashCode>
       <FileName>CombatEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler">
     <Position X="13.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAEARAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>EnemyBrawler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.GameElements">
+    <Position X="26" Y="8.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Another_Game_Final_no_fugazy.GameElements.PlayPhase" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Another_Game_Final_no_fugazy.GameElements.StateHighS" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Another_Game_Final_no_fugazy.GameElements.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACBgFhIAAwJEAEIwCCgAkgAYAADABACAAAAAQQYAs=</HashCode>
+      <FileName>GameElements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Another_Game_Final_no_fugazy.HealthBar">
+    <Position X="41.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACBAAAAAAAgAAAAAAAAAAAAAAAAAICAEAAAAEAAA=</HashCode>
+      <FileName>HealthBar.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Another_Game_Final_no_fugazy.ICombatant">

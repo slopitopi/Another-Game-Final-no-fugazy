@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -19,11 +18,12 @@ namespace Another_Game_Final_no_fugazy
         private Instructions instructions;
         private SpriteFont font;
         bool SelectableCard = false;
-        bool CardSelected = false;
+        string Target;
 
-        public Card(string name, Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
+        public Card(string name, string target, Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
         {
             this.Name = name;
+            this.Target = target;
         }
 
         public string name
@@ -31,24 +31,15 @@ namespace Another_Game_Final_no_fugazy
             get { return Name; }
         }
 
-
+        public string target
+        {
+            get { return Target; }
+        }
 
         public bool selectableCard
         {
             get { return SelectableCard; }
             set { SelectableCard = value; }
         }
-
-        public bool cardSelected
-        {
-            get { return CardSelected; }
-            set { CardSelected = value; }
-        }
-
-        public void PauseCard()
-        {
-            onClick = null;
-        }
-
     }
 }

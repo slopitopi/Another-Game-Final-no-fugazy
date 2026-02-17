@@ -22,25 +22,30 @@ namespace Another_Game_Final_no_fugazy
 
 
         //--------------------------------TEST PLANE--------------------------------//
-        private static TurnLogic turnLogic;
-        private static Card card;
+
+
         //--------------------------------TEST PLANE END--------------------------------//
 
 
 
 
 
+        //--------------------------------EnemySystem--------------------------------//
+        private static List<CombatEntity> enemys;
+        private static CombatEntity clickedEnemy;
+        //--------------------------------EnemySystem END--------------------------------//
+
+
 
 
         //--------------------------------CardSystem--------------------------------//
-        private static Card[] deck, pos1, pos2, pos3;
+        private static Card[] pos1, pos2, pos3;
 
-        private static int EnemyHP = 100;
-        private static int PlayerHP = 10;
-
-        private static Random randomCardGen;
+        private static Random randomCardGen, RandomEnemyGen;
         private static int pos1Index, pos2Index, pos3Index;
 
+        private static Card selectedCard;
+        private static int selectedCardPos;
 
         private enum PlayPhase { SelectCard, SelectEnemy };
         private static PlayPhase currentPlayPhase;
@@ -142,27 +147,53 @@ namespace Another_Game_Final_no_fugazy
 
 
 
+            //--------------------------------EnemySystem--------------------------------//
+            enemys = new List<CombatEntity>();
+
+            Texture2D tmpSprite = content.Load<Texture2D>("images/Enemy/EnemySprite");
+
+            for (int i = 0; i < 1; i++)
+            {
+                EnemyBrawler temp = new EnemyBrawler(tmpSprite, 400, 100, 80, 120, null, Color.White, Color.Red, 30, 8, 8);
+
+                temp.SetOnClick(() =>
+                {
+                    if (currentPlayPhase == PlayPhase.SelectEnemy)
+                    {
+                        clickedEnemy = temp;
+                    }
+                });
+                enemys.Add(temp);
+            }
+            //--------------------------------EnemySystem END--------------------------------//
+
+
+
+
+
+
+
 
 
             //--------------------------------CardSystem--------------------------------//
-            
+
 
             pos1 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ EnemyHP -= 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("DmgCardPressed"); pos1[pos1Index].selectableCard = true; }, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { PlayerHP += 10; pos1Index = randomCardGen.Next(pos1.Length); Debug.WriteLine("HealCardPressed"); pos1[pos1Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy",  content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ pos1[pos1Index].selectableCard = true; }, Color.White, Color.Red),
+                new Card("HealCard", "Self",content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { pos1[pos1Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos2 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ EnemyHP -= 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("DmgCardPressed"); pos2[pos2Index].selectableCard = true;}, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { PlayerHP += 10; pos2Index = randomCardGen.Next(pos2.Length); Debug.WriteLine("HealCardPressed"); pos2[pos2Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ pos2[pos2Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard","Self", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { pos2[pos2Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos3 = new Card[]
             {
-                new Card("DamageCard", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ EnemyHP -= 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("DmgCardPressed"); pos3[pos3Index].selectableCard = true;}, Color.White, Color.Red),
-                new Card("HealCard", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { PlayerHP += 10; pos3Index = randomCardGen.Next(pos3.Length); Debug.WriteLine("HealCardPressed"); pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ pos3[pos3Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard","Self", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
 
@@ -196,6 +227,8 @@ namespace Another_Game_Final_no_fugazy
 
             highscore.LoadFromFile("highscore.txt");
             //--------------------------------HighScore END--------------------------------//
+
+
 
 
             //-------------------------------Instructions Text--------------------------------//
@@ -423,6 +456,8 @@ namespace Another_Game_Final_no_fugazy
 
         public static void Play_UpdateGE(GameTime gameTime)
         {
+            MouseState mouse = Mouse.GetState();
+
             //--------------------------------Background--------------------------------//
             background.Update(gameTime);
             //--------------------------------Background END--------------------------------//
@@ -434,60 +469,168 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-            //--------------------------------TEST PLANE--------------------------------//
 
-            //--------------------------------TEST PLANE--------------------------------//
+
+
+
+
+            //--------------------------------MINI EnemySystem END--------------------------------//
+            foreach (CombatEntity enemy in enemys)
+            {
+                if (enemy.IsAlive)
+                {
+                    enemy.Update(mouse);
+                }
+
+            }
+            //--------------------------------MINI EnemySystem END--------------------------------//
+
 
 
 
 
             //--------------------------------CardSystem--------------------------------//
-            MouseState mouse = Mouse.GetState();
-
-            bool EnemyClicked = true;
-            switch(currentPlayPhase)
+            switch (currentPlayPhase)
             {
                 case PlayPhase.SelectCard:
                     pos1[pos1Index].Update(mouse);
                     pos2[pos2Index].Update(mouse);
                     pos3[pos3Index].Update(mouse);
 
-                    if (pos1[pos1Index].selectableCard || pos2[pos2Index].selectableCard || pos3[pos3Index].selectableCard)
+
+
+
+
+                    selectedCard = null;
+                    selectedCardPos = 0;
+
+                    if (pos1[pos1Index].selectableCard)
+                    {
+                        selectedCard = pos1[pos1Index];
+                        selectedCardPos = 1;
+                    }
+                    else if (pos2[pos2Index].selectableCard)
+                    {
+                        selectedCard = pos2[pos2Index];
+                        selectedCardPos = 2;
+
+                    }
+                    else if (pos3[pos3Index].selectableCard)
+                    {
+                        selectedCard = pos3[pos3Index];
+                        selectedCardPos = 3;
+                    }
+
+
+
+                    if (selectedCard != null)
                     {
                         pos1[pos1Index].selectableCard = false;
                         pos2[pos2Index].selectableCard = false;
                         pos3[pos3Index].selectableCard = false;
-                        currentPlayPhase = PlayPhase.SelectEnemy;
-                        Debug.WriteLine("CARD HAS BEED SELECTED");
 
+
+                        if (selectedCard.target == "Self")
+                        {
+                            switch (selectedCard.name)
+                            {
+                                case "HealCard":
+
+
+                                    break;
+                            }
+                            Debug.WriteLine("Self Card has been activated");
+
+                            foreach (CombatEntity enemy in enemys)
+                            {
+                                enemy.WaitTurns();
+                            }
+
+                            switch (selectedCardPos)
+                            {
+                                case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
+                                case 2: pos2Index = randomCardGen.Next(pos2.Length); break;
+                                case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                            }
+
+
+                            currentPlayPhase = PlayPhase.SelectCard;
+                        }
+
+                        else if (selectedCard.target == "Enemy")
+                        {
+                            Debug.WriteLine("CARD HAS BEED SELECTED");
+
+                            currentPlayPhase = PlayPhase.SelectEnemy;
+                        }
                     }
                     break;
+
+
+
+
 
 
                 case PlayPhase.SelectEnemy:
                     //Show instructions
-                    if (EnemyClicked == true)
+
+
+
+                    if (clickedEnemy != null)
                     {
                         Debug.WriteLine("ENEMY HAS BEEN CLICKED");
-                        EnemyHP -= 10;
-                        pos1[pos1Index].selectableCard = false;
-                        pos2[pos2Index].selectableCard = false;
-                        pos3[pos3Index].selectableCard = false;
-                        currentPlayPhase = PlayPhase.SelectCard;
 
-                        currentState = State.Menu;
+                        switch (selectedCard.name)
+                        {
+                            case "DamageCard":
+                                clickedEnemy.TakeDamage(10);
+                                break;
+                        }
+
+                        //--EnemySysten--//
+                        foreach (CombatEntity enemy in enemys)
+                        {
+                            enemy.WaitTurns();
+                        }
+                        //--EnemySysten--//
+
+
+
+                        switch (selectedCardPos)
+                        {
+                            case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
+                            case 2: pos2Index = randomCardGen.Next(pos2.Length); break;
+                            case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                        }
+
+
+                        selectedCard = null;
+                        clickedEnemy = null;
+                        currentPlayPhase = PlayPhase.SelectCard;
                     }
 
                     break;
             }
-
 
             //--------------------------------CardSystem END--------------------------------//
 
 
 
 
-            Debug.WriteLine($"PlayPhase {currentPlayPhase}");
+
+
+
+
+
+
+
+
+
+            //--------------------------------TEST PLANE--------------------------------//
+
+            //--------------------------------TEST PLANE--------------------------------//
+
+            //Debug.WriteLine($"PlayPhase {currentPlayPhase}");
         }
 
 
@@ -498,23 +641,50 @@ namespace Another_Game_Final_no_fugazy
             background.Draw(spriteBatch);
             //--------------------------------Background--------------------------------//
 
-
-
-            // Drawing logic for game elements can be added here
-            //--------------------------------TEST PLANE--------------------------------//
-            if (pos1[pos1Index].selectableCard || pos2[pos2Index].selectableCard || pos3[pos3Index].selectableCard)
+            //--------------------------------CardSystem--------------------------------//
+            if (currentPlayPhase == PlayPhase.SelectEnemy)
             {
                 cardInstrucions.Draw(spriteBatch);
             }
 
-
-
-
             pos1[pos1Index].Draw(spriteBatch);
             pos2[pos2Index].Draw(spriteBatch);
             pos3[pos3Index].Draw(spriteBatch);
+
+            if (selectedCard != null)
+            {
+                selectedCard.Draw(spriteBatch);
+            }
+            //--------------------------------CardSystem END--------------------------------//
+
+
+
+
+            //--------------------------------EnemySystem--------------------------------//
+            foreach (CombatEntity enemy in enemys)
+            {
+                if (enemy.IsAlive)
+                {
+                    enemy.Draw(spriteBatch);
+                }
+            }
+            //--------------------------------EnemySystem END--------------------------------//
+
+
+
+
+
+
+
+
+
+
             //--------------------------------TEST PLANE--------------------------------//
 
+
+
+
+            //--------------------------------TEST PLANE--------------------------------//
         }
 
 

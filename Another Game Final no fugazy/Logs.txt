@@ -927,7 +927,6 @@ Im going to ise one of my older codes as a basis wich had this;
 
 It treats every part of it like a state and i can do states, because i actually understand them and they are clear as can be.
 
-
 -------------05:18-------------
 ive somehow managed to take 5 steps back. im a little retarded so i think i migth actually just rewind it completely to 
 before i fuck up somethinge esle
@@ -941,7 +940,7 @@ I hope ill pull some ungodly lock in to get this done in any case See ya tomorro
 
 ___TOMORROW___
 Dont be a faliour
-gergergergergger
+gergergergergger1
 
 
 
@@ -950,4 +949,360 @@ gergergergergger
 16/02/26 - 16:02
 Im finally a succsess 
 
-look at me mom im a sucksess
+look at me mom im a succsess
+
+-------------20:49-------------
+Ok Grate news
+
+I got a very rudementry version of a turnloop finctioning in GameElements. i admit its definitly not the most striking code on earth and i know it
+and im not neccicerily proud of it but compared to when i wasted hours on something that dosent even function, this is one hell of a step up.
+
+this is what it looks like rigth now:
+
+===============
+CODE
+===============
+
+       public static void Play_UpdateGE(GameTime gameTime)
+        {
+            //--------------------------------CardSystem--------------------------------//
+            MouseState mouse = Mouse.GetState();
+
+            bool EnemyClicked = true;
+
+
+            switch (currentPlayPhase)
+            {
+                case PlayPhase.SelectCard:
+                    pos1[pos1Index].Update(mouse);
+                    pos2[pos2Index].Update(mouse);
+                    pos3[pos3Index].Update(mouse);
+
+                    selectedCard = null;
+
+                    if (pos1[pos1Index].selectableCard)
+                    {
+                        selectedCard = pos1[pos1Index];
+                    }
+                    else if (pos2[pos2Index].selectableCard)
+                    {
+                        selectedCard = pos2[pos2Index];
+                    }
+                    else if (pos3[pos3Index].selectableCard)
+                    {
+                        selectedCard = pos3[pos3Index];
+                    }
+
+
+
+                    if (selectedCard != null)
+                    {
+                        pos1[pos1Index].selectableCard = false;
+                        pos2[pos2Index].selectableCard = false;
+                        pos3[pos3Index].selectableCard = false;
+
+
+                        if (selectedCard.target == "Self")
+                        {
+                            switch (selectedCard.name)
+                            {
+                                case "HealCard":
+                                    PlayerHP += 10;
+                                    break;
+                            }
+                            Debug.WriteLine("Self Card has been activated");
+
+                            pos1Index = randomCardGen.Next(pos1.Length);
+                            pos2Index = randomCardGen.Next(pos2.Length);
+                            pos3Index = randomCardGen.Next(pos3.Length);
+
+                            currentPlayPhase = PlayPhase.SelectCard;
+                        }
+
+                        else if (selectedCard.target == "Enemy")
+                        {
+                            Debug.WriteLine("CARD HAS BEED SELECTED");
+
+                            currentPlayPhase = PlayPhase.SelectEnemy;
+                        }
+                    }
+                    break;
+
+
+                case PlayPhase.SelectEnemy:
+                    //Show instructions
+
+                        
+
+                    if (EnemyClicked == true)
+                    {
+                        Debug.WriteLine("ENEMY HAS BEEN CLICKED");
+
+                        switch (selectedCard.name)
+                        {
+                            case "DamageCard":
+                                EnemyHP -= 10;
+                                break;
+                        }
+
+
+                        pos1Index = randomCardGen.Next(pos1.Length);
+                        pos2Index = randomCardGen.Next(pos2.Length);
+                        pos3Index = randomCardGen.Next(pos3.Length);
+
+                        selectedCard = null;
+
+                        currentPlayPhase = PlayPhase.SelectCard;
+                    }
+
+                    break;
+            }
+
+
+            //--------------------------------CardSystem END--------------------------------//
+
+
+
+
+            //Debug.WriteLine($"PlayPhase {currentPlayPhase}");
+        }
+
+===============
+CODE END
+===============
+
+Basically what it dose is:
+
+Sets up a null Card
+Then fills it with the card that was clicked and all of its information.
+========
+EX:
+Card selectedCard = null
+
+//After a card is clicked
+
+Card selectedCard = new Card("HealCard","Self", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
+========
+
+Then i check if if its null or not and if its not its supposed to stop you from pressing the cards again by making their OnClick Action null but i havent
+figured it out yet with the:
+
+===============
+CODE
+===============
+    pos1[pos1Index].selectableCard = false;
+    pos2[pos2Index].selectableCard = false;
+    pos3[pos3Index].selectableCard = false;
+
+===============
+CODE END
+===============
+Step by step- a lesson that took 7 hours of wasted time to learn. Regardless 
+
+it check the terget information of the card which can eigther be "Self" or "Enemy"
+
+if its self
+It checks the name of the card to figure out what exactly its supposed to do and then dose it
+
+then it changes the card again: Which i just realised is wrong its supposed to do that only for the selected card. ill fix it
+-------------22:19-------------
+
+
+
+
+-------------23:44-------------
+i took a sligth brake and after i got back i tride to just add it in as an index like:
+
+                    selectedCard = null;
+                    selectedCardIndex = -1;
+
+                    if (pos1[pos1Index].selectableCard)
+                    {
+                        selectedCard = pos1[pos1Index];
+                        selectedCardIndex = pos1Index 
+                    }
+
+                    and then tride to do
+
+                    selectedCardIndex = randomCardGen.Next(2);
+
+
+                    but that dosent actually change the pos1,2,3Index so the card that is shown stayse the same
+                    and get stuck on the first random cards so i instead decided to fix it in probably the least clean way possible
+
+
+                    if (pos1[pos1Index].selectableCard)
+                    {
+                        selectedCard = pos1[pos1Index];
+                        selectedCardIndex = 1 
+                    }
+                    
+                    and then later down 
+
+                    switch (selectedPosition)
+                    {
+                        case 1: pos1Index = randomCardGen.Next(2); break;
+                        case 2: pos2Index = randomCardGen.Next(2); break;
+                        case 3: pos3Index = randomCardGen.Next(2); break;
+                    }
+
+
+I repeat
+IF IT AINT BROKE DONT FIX IT
+
+and this certainly aint broke so let me restart the explanation
+
+
+===============
+CODE 
+===============
+         switch (currentPlayPhase)
+            {
+                case PlayPhase.SelectCard:
+                    pos1[pos1Index].Update(mouse);
+                    pos2[pos2Index].Update(mouse);
+                    pos3[pos3Index].Update(mouse);
+
+
+
+
+
+                    selectedCard = null;
+                    selectedCardPos = 0;
+
+                    if (pos1[pos1Index].selectableCard)
+                    {
+                        selectedCard = pos1[pos1Index];
+                        selectedCardPos = 1;
+
+                    }
+                    else if (pos2[pos2Index].selectableCard)
+                    {
+                        selectedCard = pos2[pos2Index];
+                        selectedCardPos = 2;
+
+                    }
+                    else if (pos3[pos3Index].selectableCard)
+                    {
+                        selectedCard = pos3[pos3Index];
+                        selectedCardPos = 3;
+                    }
+
+
+
+                    if (selectedCard != null)
+                    {
+                        pos1[pos1Index].selectableCard = false;
+                        pos2[pos2Index].selectableCard = false;
+                        pos3[pos3Index].selectableCard = false;
+
+
+                        if (selectedCard.target == "Self")
+                        {
+                            switch (selectedCard.name)
+                            {
+                                case "HealCard":
+                                    PlayerHP += 10;
+                                    break;
+                            }
+                            Debug.WriteLine("Self Card has been activated");
+
+                            switch (selectedCardPos)
+                            {
+                                case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
+                                case 2: pos2Index = randomCardGen.Next(pos2.Length); break;
+                                case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                            }
+
+
+                            currentPlayPhase = PlayPhase.SelectCard;
+                        }
+
+                        else if (selectedCard.target == "Enemy")
+                        {
+                            Debug.WriteLine("CARD HAS BEED SELECTED");
+
+                            currentPlayPhase = PlayPhase.SelectEnemy;
+                        }
+                    }
+                    break;
+
+
+                case PlayPhase.SelectEnemy:
+                    //Show instructions
+
+
+
+                    if (EnemyClicked == true)
+                    {
+                        Debug.WriteLine("ENEMY HAS BEEN CLICKED");
+
+                        switch (selectedCard.name)
+                        {
+                            case "DamageCard":
+                                EnemyHP -= 10;
+                                break;
+                        }
+
+
+                        switch (selectedCardPos)
+                        {
+                            case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
+                            case 2: pos2Index = randomCardGen.Next(pos2.Length; break;
+                            case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                        }
+
+
+                        selectedCard = null;
+
+                        currentPlayPhase = PlayPhase.SelectCard;
+                    }
+
+                    break;
+            }
+===============
+CODE END
+===============
+
+it sets the selectedCard = null; wich is filled and redefined by the actual card
+
+selectedCardPos = 0; which is invalid and gets changed to a valid card pos when the card is clicked
+
+once the selectedCard is redefined it first cheks if the card is used on the self in wich case it automatically uses it, randomizes the pressed card and restarts the loop
+setting everything back to null and 0
+
+If the Target is "Enemy" Then it gose to the PlayPhase.SelectEnemy where it firts waits for you to click an enemy 
+
+once you do, it checks what the card is supposed to do and dose it on the enemy
+
+then Sets the chosen card to random and restarts the whole loop.
+
+
+
+
+-------------00:08-------------
+
+It functions perfectly. Ill start adding more cards later but for now ill start doing the enemys
+
+-------------01:30-------------
+Ive made a functioning enemy that dose exactly what i wanted it to do which is just randomly either attack or heal.
+with a tendency to to Spesific things with a higehr chance if it is a specific type of enemy. 
+like the brawler has a higher chance to attack and the healer has a higher chance to heal.
+
+Since i dont yet feel very tired ill try and satrt with the health bars and the visual part of the battle state.
+
+-------------03:09-------------
+Im starting to get a bit tired so im going to get off
+
+but today was a far more productive day. Because i went step by step without getting distracred. I made sure that everything happend step by step.
+one thing at a time.
+
+I managed to make The card system function with turns and stuff like that also got enemy functioning and now am working on the health bar. ive finished the class
+so ill just leavbe the rest up to tomorrows me.
+
+___TOMORROW___
+Fix the health bar
+Get player functioning
+Add a wave mecanic
+add multiple enemys
+

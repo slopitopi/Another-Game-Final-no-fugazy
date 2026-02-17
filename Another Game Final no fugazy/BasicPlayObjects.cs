@@ -79,6 +79,11 @@ namespace Another_Game_Final_no_fugazy
             onClick.Invoke();
         }
 
+        public void SetOnClick(Action action)
+        {
+            onClick = action;
+        }
+
 
     }
 }

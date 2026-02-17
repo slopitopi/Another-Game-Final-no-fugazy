@@ -10,12 +10,12 @@ namespace Another_Game_Final_no_fugazy
 {
     internal class Instructions
     {
-        private SpriteFont Font;
-        private string Text;
-        private Vector2 TextPosition;
-        private Rectangle BackgroundRect;
-        private Texture2D BackgroundTexture;
-        private int Padding = 20; // Padding around the text
+        protected SpriteFont Font;
+        protected string Text;
+        protected Vector2 TextPosition;
+        protected Rectangle BackgroundRect;
+        protected Texture2D BackgroundTexture;
+        protected int Padding = 20; // Padding around the text
 
         /// <summary>
         /// Creates an instructions with centered text.
@@ -46,7 +46,7 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(BackgroundTexture, BackgroundRect, Color.Black * 0.6f);
 
