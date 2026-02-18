@@ -14,21 +14,18 @@ namespace Another_Game_Final_no_fugazy
         protected int enemyHP;
         protected int enemyMaxHP;
         protected int attackPower;
-        protected int defensePower;
         protected int turnsTillNextAction;
         protected int baseTTNA;
-
-        HealthBar healthBar;
-
+        protected bool GivenDebuff;
 
 
-        public CombatEntity(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor, int enemyMaxHp, int attackPower, int defensePower) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
+
+        public CombatEntity(Texture2D texture, Rectangle rect, Action onClick, Color normalColor, Color hoverColor, int enemyMaxHp, int attackPower) : base(texture, rect, onClick, normalColor, hoverColor)
         {
             this.enemyMaxHP = enemyMaxHp;
             this.enemyHP = enemyMaxHP;
 
             this.attackPower = attackPower;
-            this.defensePower = defensePower;
 
             this.baseTTNA = 2;
             this.turnsTillNextAction = baseTTNA;
@@ -79,6 +76,13 @@ namespace Another_Game_Final_no_fugazy
             }
 
         }
+
+        public virtual void GiveDebuff(int Turns)
+        {
+            GivenDebuff = true;
+        }
+
+
 
         public abstract void PerformAction();
 

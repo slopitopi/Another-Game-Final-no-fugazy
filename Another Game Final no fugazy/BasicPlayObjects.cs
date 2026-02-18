@@ -23,10 +23,10 @@ namespace Another_Game_Final_no_fugazy
         protected bool wasPressed;
         //--------------------------------Game State Management--------------------------------//
 
-        public GameObject(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor)
+        public GameObject(Texture2D texture, Rectangle rect, Action onClick, Color normalColor, Color hoverColor)
         {
             this.texture = texture;
-            this.rect = new Rectangle(x, y, width, height);
+            this.rect = rect;
             this.onClick = onClick;
             this.normalColor = normalColor;
             this.hoverColor = hoverColor;

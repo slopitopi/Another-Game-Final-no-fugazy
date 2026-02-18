@@ -1,22 +1,28 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Another_Game_Final_no_fugazy
 {
     internal class EnemyBrawler : CombatEntity
     {
         protected readonly Random random = new Random();
+        private Player player;
 
-        public EnemyBrawler(Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor, int BrawlerMaxHp, int BrawilerAttackPower, int BrawlerDefensePower) : base(texture, x, y, width, height, onClick, normalColor, hoverColor, BrawlerMaxHp, BrawilerAttackPower, BrawlerDefensePower)
+
+
+        public EnemyBrawler(Texture2D texture, Rectangle rect, Action onClick, Color normalColor, Color hoverColor, int BrawlerMaxHp, int BrawilerAttackPower, Player player) : base(texture, rect, onClick, normalColor, hoverColor, BrawlerMaxHp, BrawilerAttackPower)
         {
             this.baseTTNA = 3;
             this.turnsTillNextAction = baseTTNA;
+
+            this.player = player;
         }
 
         public override void PerformAction()
@@ -26,7 +32,9 @@ namespace Another_Game_Final_no_fugazy
 
             if (ChanceOfAction < 70)
             {
-                Debug.WriteLine("Brawler Attacks!");
+                player.GiveDebuff(2);
+                player.HealthBar.UpdateHealth();
+                Debug.WriteLine("Brawler Debuffed!");
             }
 
             else

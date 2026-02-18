@@ -1306,3 +1306,54 @@ Get player functioning
 Add a wave mecanic
 add multiple enemys
 
+
+
+
+
+
+
+18/02/26 - 17:41
+
+I forgot to write in the log yesterday but i managed to get the health bars working.
+
+Today i plan on trying to efectivise things spesifically make the positions and textures. basically things that clog up the gameelements 
+so ill make a new class called ObjectPosTex
+
+-------------19:35-------------
+I got that finished now all the positions and textures are stored in a neat little class and i can just call i am 
+like litterally using:
+
+using static Another_Game_Final_no_fugazy.ObjectPosTex;
+
+
+I dont know if this is a good thing to do in terms of the grade and general programming but it makes my life a lot easier and 
+the code a lot cleaner so im going to do it anyway.
+
+
+
+Its Time to move onto the wave system. 
+
+I could make life simple by putting a new method into gameElements that is like StartWave() 
+and then just call it whenever i need to but that will make my gameElements look not so nice.
+
+And i have principles and pride when it comes to the cleanliness of my gameElements 
+so im going to try and make a new class called WaveManager 
+
+YAAAAAAAAY I LOVE MAKING LIFE DIFFICULT FOR MYSELF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+-------------20:27-------------
+FOrget about that for now. I just realised that all of my enemy code is not yet ready for multiple enemys and that it will be a pain 
+if i have to change it later on so im going to try and make a quick player because its preatty simple just a picure and healthbar. 
+and make it work for multiple enemys right now. and then later make the wave function.
+
+Ill mane enemymage that has a tendency to debuff the player
+and a mage that has a tendency to buff itself and increase the healt of other enemys. ill probably end up making it random. but
+ill first try making it so that it picks the enemy with the lowest health. Its backward and i should first make it random and then 
+make it so that it picks the lowest health 
+
+But i want it to work that way and i feel like ill get lazy and just leave it as random if 
+i do it the other way around so im going to try and make it work that way from the start.
+
+
+Im kinda tired right now so ill deal with most of it afer a short bralke because im lost rn

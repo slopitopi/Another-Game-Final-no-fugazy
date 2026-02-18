@@ -15,12 +15,10 @@ namespace Another_Game_Final_no_fugazy
     internal class Card : GameObject
     {
         protected string Name;
-        private Instructions instructions;
-        private SpriteFont font;
         bool SelectableCard = false;
         string Target;
 
-        public Card(string name, string target, Texture2D texture, int x, int y, int width, int height, Action onClick, Color normalColor, Color hoverColor) : base(texture, x, y, width, height, onClick, normalColor, hoverColor)
+        public Card(string name, string target, Texture2D texture, Rectangle rect, Action onClick, Color normalColor, Color hoverColor) : base(texture, rect, onClick, normalColor, hoverColor)
         {
             this.Name = name;
             this.Target = target;

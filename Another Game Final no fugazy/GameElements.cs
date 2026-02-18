@@ -14,6 +14,11 @@ using System.Text;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 
+using static Another_Game_Final_no_fugazy.ObjectPosTex;
+
+
+
+
 namespace Another_Game_Final_no_fugazy
 {
     internal static class GameElements
@@ -22,8 +27,7 @@ namespace Another_Game_Final_no_fugazy
 
 
         //--------------------------------TEST PLANE--------------------------------//
-
-
+        private static Player player;
         //--------------------------------TEST PLANE END--------------------------------//
 
 
@@ -41,7 +45,7 @@ namespace Another_Game_Final_no_fugazy
         //--------------------------------CardSystem--------------------------------//
         private static Card[] pos1, pos2, pos3;
 
-        private static Random randomCardGen, RandomEnemyGen;
+        private static Random randomCardGen;
         private static int pos1Index, pos2Index, pos3Index;
 
         private static Card selectedCard;
@@ -125,6 +129,12 @@ namespace Another_Game_Final_no_fugazy
 
         public static void LoadContentGE(ContentManager content, GameWindow window, GraphicsDevice graphicsDevice)
         {
+            Load_Pos_Tex(content, window, graphicsDevice);
+
+
+
+
+
 
             //--------------------------------TEST PLANE--------------------------------//
 
@@ -159,20 +169,20 @@ namespace Another_Game_Final_no_fugazy
 
             pos1 = new Card[]
             {
-                new Card("DamageCard", "Enemy",  content.Load<Texture2D>("images/Cards/DmgCard"), 300, 100, 80, 120, () =>{ pos1[pos1Index].selectableCard = true; }, Color.White, Color.Red),
-                new Card("HealCard", "Self",content.Load<Texture2D>("images/Cards/HealCard"), 300, 100, 80, 120, () => { pos1[pos1Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy",  DamageCardTex, CardPos1, () =>{ pos1[pos1Index].selectableCard = true; }, Color.White, Color.Red),
+                new Card("HealCard", "Self", HealCardTex, CardPos1, () => { pos1[pos1Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos2 = new Card[]
             {
-                new Card("DamageCard", "Enemy", content.Load<Texture2D>("images/Cards/DmgCard"), 600, 100, 80, 120, () =>{ pos2[pos2Index].selectableCard = true;}, Color.White, Color.Red),
-                new Card("HealCard","Self", content.Load<Texture2D>("images/Cards/HealCard"), 600, 100, 80, 120, () => { pos2[pos2Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy", DamageCardTex, CardPos2, () =>{ pos2[pos2Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard","Self", HealCardTex, CardPos2, () => { pos2[pos2Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
             pos3 = new Card[]
             {
-                new Card("DamageCard", "Enemy", content.Load<Texture2D>("images/Cards/DmgCard"), 900, 100, 80, 120, () =>{ pos3[pos3Index].selectableCard = true;}, Color.White, Color.Red),
-                new Card("HealCard","Self", content.Load<Texture2D>("images/Cards/HealCard"), 900, 100, 80, 120, () => { pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
+                new Card("DamageCard", "Enemy", DamageCardTex, CardPos3, () =>{ pos3[pos3Index].selectableCard = true;}, Color.White, Color.Red),
+                new Card("HealCard","Self", HealCardTex, CardPos3, () => { pos3[pos3Index].selectableCard = true;}, Color.White, Color.Green)
             };
 
 
@@ -188,7 +198,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //--------------------------------Universal Stuff--------------------------------//
-            backButton = new Button(content.Load<Texture2D>("images/Instructions/BackButton"), window.ClientBounds.Width - 110, window.ClientBounds.Height - 60, 100, 50, () => currentState = State.Menu, Color.White, Color.Red);
+            backButton = new Button(BackButtonTex, backButtonPos, () => currentState = State.Menu, Color.White, Color.Red);
             //--------------------------------Universal Stuff END--------------------------------//
 
 
@@ -202,7 +212,7 @@ namespace Another_Game_Final_no_fugazy
 
             //--------------------------------HighScore--------------------------------//
             highscore = new HighScore(10); // List holds a maximum of 10 scores
-            myFont = content.Load<SpriteFont>("File");
+            myFont = MainFont;
 
             highscore.LoadFromFile("highscore.txt");
             //--------------------------------HighScore END--------------------------------//
@@ -211,7 +221,7 @@ namespace Another_Game_Final_no_fugazy
 
 
             //-------------------------------Instructions Text--------------------------------//
-            insttructionFont = content.Load<SpriteFont>("File");
+            insttructionFont = MainFont;
 
             string instructionsText =
 
@@ -225,56 +235,40 @@ namespace Another_Game_Final_no_fugazy
 
             string SelectCardText = "Select an Enemy";
 
+
             textSize = insttructionFont.MeasureString(instructionsText);
-
-
-
-
-
 
             instructions = new Instructions(insttructionFont, instructionsText, graphicsDevice, new Vector2((1280 - textSize.X) / 2, (720 - textSize.Y) / 2 - 50));
 
-
-            cardInstrucions = new Instructions(insttructionFont, SelectCardText, graphicsDevice, new Vector2(0, 50));
+            cardInstrucions = new Instructions(insttructionFont, SelectCardText, graphicsDevice, CardInstructionsPos);
             //-------------------------------Instructions Text END--------------------------------//
+
+
+
+
+
 
 
 
             //--------------------------------Background--------------------------------//
             // Menu background
             background.AddBackground(State.Menu, new BackgroundAsset(
-                new[] { 
-                    content.Load<Texture2D>("images/menu/frame_00"),
-                    content.Load<Texture2D>("images/menu/frame_01"),
-                    content.Load<Texture2D>("images/menu/frame_02"),
-                    content.Load<Texture2D>("images/menu/frame_03"),
-                    content.Load<Texture2D>("images/menu/frame_04"),
-                    content.Load<Texture2D>("images/menu/frame_05"),
-                    content.Load<Texture2D>("images/menu/frame_06"),
-                    content.Load<Texture2D>("images/menu/frame_07"),
-                    content.Load<Texture2D>("images/menu/frame_08"),
-                    content.Load<Texture2D>("images/menu/frame_09"),
-                    content.Load<Texture2D>("images/menu/frame_10"),
-                    content.Load<Texture2D>("images/menu/frame_11"),
-                    content.Load<Texture2D>("images/menu/frame_12"),
-                    content.Load<Texture2D>("images/menu/frame_13"),
-                    content.Load<Texture2D>("images/menu/frame_14"),
-
-
-                },
+                MenuBackgroundFrames,
                 isAnimated: true,
                 frameDuration: 0.09f
             ));
 
+
             // Play background
             background.AddBackground(State.Play, new BackgroundAsset(
-                new[] { content.Load<Texture2D>("images/Battleground/Battleground_BG1") },
+                new[] { PlayBackgroundTex },
                 isAnimated: false
             ));
 
+
             // Instructions background
             background.AddBackground(State.Instructions, new BackgroundAsset(
-                new[] { content.Load<Texture2D>("images/Instructions/Background") },
+                new[] { InstructionsBackgroundTex },
                 isAnimated: false
             ));
 
@@ -289,28 +283,36 @@ namespace Another_Game_Final_no_fugazy
 
 
 
+
+
+
             //-------------------------------MenuButtons--------------------------------//
             // The lists for buttons in each state are initialized here and also the buttons are created and added to the lists.
             menuButtons = new List<Button>()
             {
-                new Button(content.Load<Texture2D>("images/menu/playButton_"), 640 - 200 / 2, 100, 200, 50, () => currentState = State.Play, Color.White, Color.Green),
-                new Button(content.Load<Texture2D>("images/menu/highScore_"), 640 - 200 / 2, 150 +20 , 200, 50, () => currentState = State.HighScore, Color.White, Color.Blue),
-                new Button(content.Load<Texture2D>("images/menu/instructions_"), 640 - 200 / 2, 200 + 40, 200, 50, () => currentState = State.Instructions, Color.White, Color.Red),
-                new Button(content.Load<Texture2D>("images/menu/quit_"), 640 - 200 / 2, 250+ 60, 200, 50, () => Environment.Exit(0), Color.White, Color.Red),
+                new Button(MenuButtonPlayTex ,menuButtonPlayRect, () => currentState = State.Play, Color.White, Color.Green),
+                new Button(MenuButtonHighScoreTex ,menuButtonHighScoreRect, () => currentState = State.HighScore, Color.White, Color.Blue),
+                new Button(MenuButtonInstructionsTex, menuButtonInstructionsRect, () => currentState = State.Instructions, Color.White, Color.Red),
+                new Button(MenuButtonQuitTex, MenuButtonQuitRect, () => Environment.Exit(0), Color.White, Color.Red),
             };
             //-------------------------------MenuButtons END--------------------------------//
 
 
 
 
+            //--------------------------------Player--------------------------------//
+            player = new Player(PlayerTex, PlayerPos, null, Color.White, Color.Blue, 100, 0);
+            player.HealthBar = new HealthBar(insttructionFont, graphicsDevice, PlayerHealthBarPos, player);
+            //--------------------------------Player END--------------------------------//
+
+
+
             //--------------------------------EnemySystem--------------------------------//
             enemys = new List<CombatEntity>();
 
-            Texture2D tmpSprite = content.Load<Texture2D>("images/Enemy/EnemySprite");
-
             for (int i = 0; i < 1; i++)
             {
-                EnemyBrawler temp = new EnemyBrawler(tmpSprite, 400, 100, 80, 120, null, Color.White, Color.Red, 30, 8, 8);
+                EnemyBrawler temp = new EnemyBrawler(EnemyBrawlerTex, EnemyPos1, null, Color.White, Color.Red, 30, 8, player);
 
                 temp.SetOnClick(() =>
                 {
@@ -320,13 +322,26 @@ namespace Another_Game_Final_no_fugazy
                     }
                 });
 
-                Vector2 healthBarPos = new Vector2(400, 100 + 120);
+                Vector2 healthBarPos = EnemyPos1Healthbar;
 
                 temp.HealthBar = new HealthBar(insttructionFont, graphicsDevice, healthBarPos, temp);
 
                 enemys.Add(temp);
             }
             //--------------------------------EnemySystem END--------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
@@ -489,6 +504,8 @@ namespace Another_Game_Final_no_fugazy
                 }
             }
 
+            player.Update(mouse);
+            player.HealthBar.UpdateHealth();
             //--------------------------------MINI EnemySystem END--------------------------------//
 
 
@@ -541,8 +558,8 @@ namespace Another_Game_Final_no_fugazy
                             switch (selectedCard.name)
                             {
                                 case "HealCard":
-
-
+                                    player.Heal(10);
+                                    player.HealthBar.UpdateHealth();
                                     break;
                             }
                             Debug.WriteLine("Self Card has been activated");
@@ -594,9 +611,10 @@ namespace Another_Game_Final_no_fugazy
                         switch (selectedCard.name)
                         {
                             case "DamageCard":
-                                clickedEnemy.TakeDamage(10);
+                                clickedEnemy.TakeDamage(1);
                                 clickedEnemy.HealthBar.UpdateHealth();
                                 break;
+
                         }
 
                         //--EnemySysten--//
@@ -610,6 +628,12 @@ namespace Another_Game_Final_no_fugazy
                         }
                         //--EnemySysten--//
 
+                        if (!player.IsAlive)
+                        {
+                            currentState = State.Menu;
+                            Debug.WriteLine("Player has died! Game Over!");
+
+                        }
 
 
                         switch (selectedCardPos)
@@ -698,7 +722,8 @@ namespace Another_Game_Final_no_fugazy
 
             //--------------------------------TEST PLANE--------------------------------//
 
-
+            player.Draw(spriteBatch);
+            player.HealthBar.Draw(spriteBatch);
 
 
             //--------------------------------TEST PLANE--------------------------------//
@@ -780,10 +805,19 @@ namespace Another_Game_Final_no_fugazy
             background.Update(gameTime);
             //--------------------------------Background END--------------------------------//
 
+
+
+
+
             //-------------------------------Back Button--------------------------------//
             MouseState mouse = Mouse.GetState();
             backButton.Update(mouse);
             //-------------------------------Back Button END--------------------------------//
+
+
+
+
+
 
             //--------------------------------HighScore--------------------------------//
             switch (HighState)
@@ -829,9 +863,15 @@ namespace Another_Game_Final_no_fugazy
             //--------------------------------Background--------------------------------//
 
 
+
+
+
             //-------------------------------Back Button--------------------------------//
             backButton.Draw(spriteBatch);
             //-------------------------------Back Button--------------------------------//
+
+
+
 
             //--------------------------------HighScore--------------------------------//
             switch (HighState)
