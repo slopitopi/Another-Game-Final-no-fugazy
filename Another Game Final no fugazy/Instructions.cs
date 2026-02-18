@@ -45,6 +45,22 @@ namespace Another_Game_Final_no_fugazy
         }
 
 
+        public void SetText(string newText)
+        {
+            Text = newText;
+            // Center the text on screen (1280x720)
+            Vector2 textSize = Font.MeasureString(Text);
+
+
+            // Create background rectangle with padding
+            BackgroundRect = new Rectangle(
+                (int)TextPosition.X - Padding,
+                (int)TextPosition.Y - Padding,
+                (int)textSize.X + Padding * 2,
+                (int)textSize.Y + Padding * 2
+            );
+        }
+
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

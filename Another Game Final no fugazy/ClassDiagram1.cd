@@ -29,9 +29,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.Instructions">
-    <Position X="24" Y="3.5" Width="1.5" />
+    <Position X="25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIQCAAyAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIQCAAyAAA=</HashCode>
       <FileName>Instructions.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,14 +59,14 @@
   <Class Name="Another_Game_Final_no_fugazy.CombatEntity">
     <Position X="11.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAWAAICQACAAAAAAAACAAABAAAAABAAiAhAAAA=</HashCode>
+      <HashCode>AUAAAAQWAAICQACAAAAAAAACAAABAAAAABAAiABAAAA=</HashCode>
       <FileName>CombatEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.EnemyBrawler">
     <Position X="13.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAUAAIAAAAAIAAAAAAAAAABAAABAAQAAAAAAAA=</HashCode>
       <FileName>EnemyBrawler.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -93,12 +93,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAACBgFgIAAwJEAEIwCCgAkgAYAADABBCAAAAAQAYAs=</HashCode>
+      <HashCode>AAACBgFgIAAwJEAEI0CCgAkgAYAADABBCAAAAAQAYAs=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Another_Game_Final_no_fugazy.HealthBar">
-    <Position X="26.5" Y="7.75" Width="1.5" />
+    <Position X="27.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACBAAAAAAAgAAAAAAAAAAAAAAAAAACAEAAAAEAAA=</HashCode>
       <FileName>HealthBar.cs</FileName>
@@ -107,7 +107,7 @@
   <Class Name="Another_Game_Final_no_fugazy.ObjectPosTex">
     <Position X="31.75" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QJAKBAEIECggCFBCJABABCAAAEAgAA7IBAAAgMCQIAI=</HashCode>
+      <HashCode>QJAKBAEIECggCFBCJABABCAAAEAgAg7IBAAAgMCQIAI=</HashCode>
       <FileName>ObjectPosTex.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -135,7 +135,7 @@
   <Class Name="Another_Game_Final_no_fugazy.Player">
     <Position X="6.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAUAAIAAAAAIAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>

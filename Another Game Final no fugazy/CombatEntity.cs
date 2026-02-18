@@ -52,6 +52,12 @@ namespace Another_Game_Final_no_fugazy
             set;
         }
 
+        public Instructions EffectBoxes
+        {
+            get; 
+            set;
+        }
+
 
 
 
@@ -77,7 +83,7 @@ namespace Another_Game_Final_no_fugazy
 
         }
 
-        public virtual void GiveDebuff(int Turns)
+        public virtual void GiveDebuff(int Turns)  //Change to abstract method Later
         {
             GivenDebuff = true;
         }

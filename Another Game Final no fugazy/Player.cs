@@ -13,7 +13,8 @@ namespace Another_Game_Final_no_fugazy
 {
     internal class Player : CombatEntity
     {
-        public bool Debuffed = false;
+
+        private int debuffTurnsRemaining = 0;
 
 
         public Player(Texture2D texture, Rectangle rect, Action onClick, Color normalColor, Color hoverColor, int maxHp, int attackPower) : base(texture, rect, onClick, normalColor, hoverColor, maxHp, attackPower)
@@ -23,7 +24,7 @@ namespace Another_Game_Final_no_fugazy
 
         public bool IsDebuffed()
         {
-            return Debuffed;
+            return debuffTurnsRemaining > 0;
         }
 
 
@@ -33,23 +34,46 @@ namespace Another_Game_Final_no_fugazy
 
         public override void GiveDebuff(int Turns)
         {
-            Debuffed = true;
+            debuffTurnsRemaining = Turns;
+            UpdateEffectBoxText();
+            Debug.WriteLine($"Player DEBUFF for {Turns} ");
+        }
 
-            for (int i = 0; i < Turns; i++)
+
+        public void UpdateEffectBoxText()
+        {
+            string text = "Player Characteristics \n\n" +
+                          $"Debuff turns: {debuffTurnsRemaining} \n" +
+                          $"Card increase per wave: wavenNum \n\n" +
+                          $"Damage = dmg * wavemath \n" +
+                          $"Health = heal * wavemath \n" +
+                          $"Buff = buff * wavemath \n" +
+                          $"DOT = dmg * wavemath \n";
+
+
+            EffectBoxes.SetText(text);
+        }
+
+
+        public override void WaitTurns()
+        {
+            if (debuffTurnsRemaining > 0)
             {
-                Debug.WriteLine($"Player DEBUFF for {Turns - i} ");
+                debuffTurnsRemaining--;
+                UpdateEffectBoxText();
 
-                if (i == Turns - 1)
+                if (debuffTurnsRemaining == 0)
                 {
-                    Debuffed = false;
-                    Debug.WriteLine("Player DEBUFF EXPIRED");
+                    Debug.WriteLine("Player DEBUFF OVER");
                 }
             }
         }
 
+
+
+
         public override void Update(MouseState mouseState)
         {
-
         }
     }
 }

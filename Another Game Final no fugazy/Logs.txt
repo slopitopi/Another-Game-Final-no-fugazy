@@ -1357,3 +1357,26 @@ i do it the other way around so im going to try and make it work that way from t
 
 
 Im kinda tired right now so ill deal with most of it afer a short bralke because im lost rn
+
+
+-------------21:17-------------
+Altrigth back to work. I had a thougth and thought about 
+how i only have effectively 2 cards heal and damage. i want to have hell a cards that do many things. like debuff and eventually even poison 
+but then i need some way to display that so im going to need an effect box that shows the effects that are currently on the player and the enemys.
+i can also use it to display the increases in stats per wave.
+
+
+-------------00:27-------------
+DONE
+i have got the effectbox and player made and working also got the debuff working, no spesific card yet baut that will be easy to add later on.
+
+
+its late so ill cut it off here but the rest should be pretty easy to dd.
+
+___TOMORROW___
+Get wave system working
+Set up the other enemys
+Set up thair positions
+Get highscore working
+Comments and clean up the code a bit.
+

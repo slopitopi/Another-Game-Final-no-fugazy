@@ -51,6 +51,8 @@ namespace Another_Game_Final_no_fugazy
 
         public readonly static Rectangle EnemyPos1 = new Rectangle(800, 240, 80, 120);
         public readonly static Vector2 EnemyPos1Healthbar = new Vector2(800 + 20, 240 + (120 + 25));
+
+        public readonly static Vector2 EnemyPos1EffectBox = new Vector2(800 + 100, 240 + 20);
         //--------------------------------ENEMY--------------------------------//
 
         //--------------------------------PLAYER--------------------------------//
@@ -62,6 +64,9 @@ namespace Another_Game_Final_no_fugazy
 
         public readonly static Rectangle PlayerPos = new Rectangle(200, 240, 80, 120);
         public readonly static Vector2 PlayerHealthBarPos = new Vector2(200 + 20, 240 + (120 + 25));
+
+        public readonly static Vector2 PlayerEffectBoxPos = new Vector2(50, 500);
+
         //--------------------------------PLAYER ENMD--------------------------------//
 
 

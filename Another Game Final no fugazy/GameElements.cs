@@ -74,7 +74,7 @@ namespace Another_Game_Final_no_fugazy
 
 
         //-------------------------------Instructions Text--------------------------------//
-        private static Instructions instructions, cardInstrucions;
+        private static Instructions instructions, cardInstrucions, effectBoxes;
         private static Button backButton;
         private static SpriteFont insttructionFont;
         private static Vector2 textSize;
@@ -303,6 +303,9 @@ namespace Another_Game_Final_no_fugazy
             //--------------------------------Player--------------------------------//
             player = new Player(PlayerTex, PlayerPos, null, Color.White, Color.Blue, 100, 0);
             player.HealthBar = new HealthBar(insttructionFont, graphicsDevice, PlayerHealthBarPos, player);
+
+            player.EffectBoxes = new Instructions(insttructionFont, "", graphicsDevice, PlayerEffectBoxPos);
+            player.UpdateEffectBoxText();
             //--------------------------------Player END--------------------------------//
 
 
@@ -310,9 +313,13 @@ namespace Another_Game_Final_no_fugazy
             //--------------------------------EnemySystem--------------------------------//
             enemys = new List<CombatEntity>();
 
+
+
+
             for (int i = 0; i < 1; i++)
             {
-                EnemyBrawler temp = new EnemyBrawler(EnemyBrawlerTex, EnemyPos1, null, Color.White, Color.Red, 30, 8, player);
+                int brawlerBaseDps = 8;
+                EnemyBrawler temp = new EnemyBrawler(EnemyBrawlerTex, EnemyPos1, null, Color.White, Color.Red, 30, brawlerBaseDps, player);
 
                 temp.SetOnClick(() =>
                 {
@@ -326,7 +333,17 @@ namespace Another_Game_Final_no_fugazy
 
                 temp.HealthBar = new HealthBar(insttructionFont, graphicsDevice, healthBarPos, temp);
 
+
+
+
+                Vector2 effectBoxPos = EnemyPos1EffectBox;
+
+                temp.EffectBoxes = new Instructions(insttructionFont, "", graphicsDevice, effectBoxPos);
+                temp.UpdateEffectBoxText();
+
+
                 enemys.Add(temp);
+
             }
             //--------------------------------EnemySystem END--------------------------------//
 
@@ -564,6 +581,13 @@ namespace Another_Game_Final_no_fugazy
                             }
                             Debug.WriteLine("Self Card has been activated");
 
+                            player.WaitTurns();
+
+
+
+
+
+
                             foreach (CombatEntity enemy in enemys)
                             {
                                 if (enemy.IsAlive)
@@ -611,11 +635,26 @@ namespace Another_Game_Final_no_fugazy
                         switch (selectedCard.name)
                         {
                             case "DamageCard":
-                                clickedEnemy.TakeDamage(1);
+                                int baseDamage = 3;
+
+                                if (player.IsDebuffed())
+                                {
+                                    baseDamage = baseDamage - 1;
+                                }
+
+                                clickedEnemy.TakeDamage(baseDamage);
+                                break;
+
+                            case "DebuffCard":
+                                clickedEnemy.GiveDebuff(4);
                                 clickedEnemy.HealthBar.UpdateHealth();
                                 break;
 
+
                         }
+                        player.WaitTurns();
+
+
 
                         //--EnemySysten--//
                         foreach (CombatEntity enemy in enemys)
@@ -624,15 +663,17 @@ namespace Another_Game_Final_no_fugazy
                             {
                                 enemy.WaitTurns();
                             }
-
                         }
+
+
+
+
                         //--EnemySysten--//
 
                         if (!player.IsAlive)
                         {
                             currentState = State.Menu;
                             Debug.WriteLine("Player has died! Game Over!");
-
                         }
 
 
@@ -681,6 +722,8 @@ namespace Another_Game_Final_no_fugazy
             background.Draw(spriteBatch);
             //--------------------------------Background--------------------------------//
 
+
+
             //--------------------------------CardSystem--------------------------------//
             if (currentPlayPhase == PlayPhase.SelectEnemy)
             {
@@ -707,14 +750,16 @@ namespace Another_Game_Final_no_fugazy
                 {
                     enemy.Draw(spriteBatch);
                     enemy.HealthBar.Draw(spriteBatch);
+                    enemy.EffectBoxes.Draw(spriteBatch);
                 }
             }
             //--------------------------------EnemySystem END--------------------------------//
 
-
-
-
-
+            //--------------------------------Player--------------------------------//
+            player.Draw(spriteBatch);
+            player.HealthBar.Draw(spriteBatch);
+            player.EffectBoxes.Draw(spriteBatch);
+            //--------------------------------Player END--------------------------------//
 
 
 
@@ -722,8 +767,6 @@ namespace Another_Game_Final_no_fugazy
 
             //--------------------------------TEST PLANE--------------------------------//
 
-            player.Draw(spriteBatch);
-            player.HealthBar.Draw(spriteBatch);
 
 
             //--------------------------------TEST PLANE--------------------------------//
