@@ -44,6 +44,18 @@
 /processorParam:TextureFormat=Color
 /build:images/Cards/Card1.png;images/Cards/Card1
 
+#begin images/Cards/DebuffCard.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/Cards/DebuffCard.jpg;images/Cards/DebuffCard
+
 #begin images/Cards/DmgCard.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -92,6 +104,30 @@
 /processorParam:TextureFormat=Color
 /build:images/Cards/ShieldCard.jpg;images/Cards/ShieldCard
 
+#begin images/Enemy/EnemyHealer.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/Enemy/EnemyHealer.jpg;images/Enemy/EnemyHealer
+
+#begin images/Enemy/EnemyMage.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/Enemy/EnemyMage.jpg;images/Enemy/EnemyMage
+
 #begin images/Enemy/EnemySprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -103,6 +139,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/Enemy/EnemySprite.png;images/Enemy/EnemySprite
+
+#begin images/HighScore/HighScoreBacgroundd.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/HighScore/HighScoreBacgroundd.jpg;images/HighScore/HighScoreBacgroundd
 
 #begin images/Instructions/BackButton.png
 /importer:TextureImporter

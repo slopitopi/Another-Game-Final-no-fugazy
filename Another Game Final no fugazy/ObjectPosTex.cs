@@ -8,6 +8,14 @@ using System.Text;
 
 namespace Another_Game_Final_no_fugazy
 {
+    /// <summary>
+    /// Provides centralized access to textures, fonts, and layout positions used throughout the game's UI and gameplay
+    /// scenes.
+    /// </summary>
+    /// <remarks>This static class exposes preloaded textures, fonts, and screen coordinates for cards,
+    /// enemies, player, buttons, and backgrounds. All resources must be loaded by calling Load_Pos_Tex before accessing
+    /// the properties. The class is intended for internal use to simplify resource management and layout consistency
+    /// across the application.</remarks>
     internal static class ObjectPosTex
     {
         private static ContentManager content;
@@ -19,10 +27,12 @@ namespace Another_Game_Final_no_fugazy
 
         private static Texture2D damageCardTex;
         private static Texture2D healCardTex;
+        private static Texture2D debuffCardTex;
 
         public readonly static Rectangle CardPos1 = new Rectangle(360, 600, 160, 240);
         public readonly static Rectangle CardPos2 = new Rectangle(560, 600, 160, 240);
         public readonly static Rectangle CardPos3 = new Rectangle(760, 600, 160, 240);
+
 
 
 
@@ -36,27 +46,57 @@ namespace Another_Game_Final_no_fugazy
             get { return healCardTex; }
         }
 
+        public static Texture2D DebuffCardTex
+        {
+            get { return debuffCardTex; }
+        }
+
         //--------------------------------CARD END--------------------------------//
+
+
+
 
 
 
 
         //--------------------------------ENEMY--------------------------------//
         private static Texture2D enemyBrawlerTex;
+        private static Texture2D enemyMageTex;
+        private static Texture2D enemyHealerTex;
 
         public static Texture2D EnemyBrawlerTex
         {
             get { return enemyBrawlerTex; }
         }
+        public static Texture2D EnemyMageTex
+        {
+            get { return enemyMageTex; }
+        }
+        public static Texture2D EnemyHealerTex
+        {
+            get { return enemyHealerTex; }
+        }
 
-        public readonly static Rectangle EnemyPos1 = new Rectangle(800, 240, 80, 120);
-        public readonly static Vector2 EnemyPos1Healthbar = new Vector2(800 + 20, 240 + (120 + 25));
+        public readonly static Rectangle EnemyPos1 = new Rectangle(700, 240, 80, 120);
+        public readonly static Vector2 EnemyPos1Healthbar = new Vector2(700 + 20, 240 + (120 + 15));
+        public readonly static Vector2 EnemyPos1EffectBox = new Vector2(700 + 100, 240 + 10);
 
-        public readonly static Vector2 EnemyPos1EffectBox = new Vector2(800 + 100, 240 + 20);
+        public readonly static Rectangle EnemyPos2 = new Rectangle(800, 75, 80, 120);
+        public readonly static Vector2 EnemyPos2Healthbar = new Vector2(800 + 20, 75 + (120 + 15));
+        public readonly static Vector2 EnemyPos2EffectBox = new Vector2(800 + 100, 75 + 10);
+
+        public readonly static Rectangle EnemyPos3 = new Rectangle(800, 405, 80, 120);
+        public readonly static Vector2 EnemyPos3Healthbar = new Vector2(800 + 20, 405 + (120 + 15));
+        public readonly static Vector2 EnemyPos3EffectBox = new Vector2(800 + 100, 405 + 10);
+
+        public readonly static Vector2 CurrentWaveInfoPos = new Vector2(20, 20);
         //--------------------------------ENEMY--------------------------------//
+
+
 
         //--------------------------------PLAYER--------------------------------//
         private static Texture2D playerTex;
+
         public static Texture2D PlayerTex
         {
             get { return playerTex; }
@@ -64,11 +104,9 @@ namespace Another_Game_Final_no_fugazy
 
         public readonly static Rectangle PlayerPos = new Rectangle(200, 240, 80, 120);
         public readonly static Vector2 PlayerHealthBarPos = new Vector2(200 + 20, 240 + (120 + 25));
-
         public readonly static Vector2 PlayerEffectBoxPos = new Vector2(50, 500);
 
         //--------------------------------PLAYER ENMD--------------------------------//
-
 
 
 
@@ -80,32 +118,27 @@ namespace Another_Game_Final_no_fugazy
         private static Texture2D backButtonTex;
 
 
+
         public static Texture2D BackButtonTex
         {
             get { return backButtonTex; }
         }
-
         public static Texture2D MenuButtonPlayTex
         {
             get { return menuButtonPlayTex; }
         }
-
         public static Texture2D MenuButtonHighScoreTex
         {
             get { return menuButtonHighScoreTex; }
         }
-
         public static Texture2D MenuButtonInstructionsTex
         {
             get { return menuButtonInstructionsTex; }
         }
-
         public static Texture2D MenuButtonQuitTex
         {
             get { return menuButtonQuitTex; }
         }
-
-
 
 
 
@@ -118,28 +151,25 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-
         //--------------------------------BACKGROUNDS--------------------------------//
-        //private static Texture2D highScoreBackgroundTex;
+        private static Texture2D highScoreBackgroundTex;
         private static Texture2D instructionsBackgroundTex;
         private static Texture2D playBackgroundTex;
 
 
 
-        //public static Texture2D HighScoreBackgroundTex
-        //{
-        //    get { return highScoreBackgroundTex; }
-        //}
+        public static Texture2D HighScoreBackgroundTex
+        {
+            get { return highScoreBackgroundTex; }
+        }
         public static Texture2D InstructionsBackgroundTex
         {
             get { return instructionsBackgroundTex; }
         }
-
         public static Texture2D PlayBackgroundTex
         {
             get { return playBackgroundTex; }
         }
-
 
 
 
@@ -149,9 +179,8 @@ namespace Another_Game_Final_no_fugazy
         {
             get { return menuBackgroundFrames; }
         }
-
-
         //--------------------------------BACKGROUNDS END--------------------------------//
+
 
 
         //--------------------------------TEXT/INSRUCTIONS--------------------------------//
@@ -170,26 +199,34 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-
+        /// <summary>
+        /// Loads all required textures, fonts, and related graphical resources for cards, enemies, players, buttons,
+        /// backgrounds, and instructions into memory for use in the game.
+        /// </summary>
+        /// <remarks>This method must be called before attempting to render any game assets that depend on
+        /// these resources. All loaded assets are stored in static fields for global access throughout the game.
+        /// Calling this method multiple times may overwrite previously loaded resources.</remarks>
         public static void Load_Pos_Tex(ContentManager content, GameWindow window, GraphicsDevice graphicsDevice)
         {
             //--------------------------------CARD--------------------------------//
             damageCardTex = content.Load<Texture2D>("images/Cards/DmgCard");
             healCardTex = content.Load<Texture2D>("images/Cards/HealCard");
+            debuffCardTex = content.Load<Texture2D>("images/Cards/DebuffCard");
             //--------------------------------CARD END--------------------------------//
+
 
 
             //--------------------------------ENEMY--------------------------------//
             enemyBrawlerTex = content.Load<Texture2D>("images/Enemy/EnemySprite");
+            enemyMageTex = content.Load<Texture2D>("images/Enemy/EnemyMage");
+            enemyHealerTex = content.Load<Texture2D>("images/Enemy/EnemyHealer");
             //--------------------------------ENEMY END--------------------------------//
-
 
 
 
             //--------------------------------PLATER--------------------------------//
             playerTex = content.Load<Texture2D>("images/Player/PlayerSprite");
             //--------------------------------PLAYER END--------------------------------//
-
 
 
 
@@ -203,14 +240,10 @@ namespace Another_Game_Final_no_fugazy
 
 
 
-
-
-
             //--------------------------------BACKGROUNDS--------------------------------//
             instructionsBackgroundTex = content.Load<Texture2D>("images/Instructions/Background");
             playBackgroundTex = content.Load<Texture2D>("images/Battleground/Battleground_BG1");
-            //highScoreBackgroundTex = content.Load<Texture2D>("images/highscore/HighScoreBackground");
-
+            highScoreBackgroundTex = content.Load<Texture2D>("images/HighScore/HighScoreBacgroundd");
 
             menuBackgroundFrames = new Texture2D[]
             {
@@ -229,26 +262,14 @@ namespace Another_Game_Final_no_fugazy
                     content.Load<Texture2D>("images/menu/frame_12"),
                     content.Load<Texture2D>("images/menu/frame_13"),
                     content.Load<Texture2D>("images/menu/frame_14"),
-
             };
             //--------------------------------BACKGROUNDS END--------------------------------//
-
-
-
-
 
 
 
             //--------------------------------TEXT/INSRUCTIONS--------------------------------//
             mainFont = content.Load<SpriteFont>("File");
             //--------------------------------TEXT/INSRUCTIONS--------------------------------//
-
         }
-
-
-
-
-
-
     }
 }

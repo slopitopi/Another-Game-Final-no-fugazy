@@ -1380,3 +1380,123 @@ Set up thair positions
 Get highscore working
 Comments and clean up the code a bit.
 
+
+
+
+
+
+
+
+
+19/02/26 - 17:59
+
+Today marks D-Day where i need to finish eveything and get it ready for submission. 
+I have a lot to do but i think its possible to get it done in time if i just stay focused and work step by step.
+
+I think the smartest order in wich to do it is
+
+-Set up the other enemys
+All the infrastucutre is already there for multiple enemys so it should be pretty easy to just add them in and make them do their thing.
+
+-Set up thair positions
+Since i have multiple enemys to play deal with it will be easier to just set up the positions for them all at once 
+
+-Get wave system working
+Because once everything is ready to go only then add a wave system that just calls random enemys from the 
+pool and sets thair health and stuff like that. And increases it
+
+-Get highscore working
+Tracks the wave number and then saves it in
+
+-Comments and clean up the code a bit.
+Then finally once everything is working and done, go through the code and add comments and clean it up a bit.
+
+==============================================================================================================
+
+Lets start with the enemys. All the effects are already there for the mage so thats effeftivly done just a copy paste of the brawler with a higher chance to
+debuff the player.
+
+The healer is a bit more difficult because i want him to be able to heal other enemys as well so i need to make it so that he can choose 
+the enemy with the lowest health and heal them instead of himself
+
+--------------19:24-------------
+I noticed a small issue with the healthpbar and effectbox so i fixed that and then moved onto the enemys and got them mostly functioning
+My healer dosent work perfectly yet becasue sometimes it heals nothing. i think its healing the dead enemys but im going to take a short brake 
+and come back later
+
+--------------19:49-------------
+
+back at it
+
+
+--------------21:01-------------
+This was the longes time ive wasted on a single issue. the issue was thet i was calling The heal method of the combat entity class 
+instead of the one in the healer class making it loop infinity because the heal method in the 
+healer class calls the heal method in the combat entity class and then it just loops between the two of them until it eventually crashes because of stack overflow.
+
+
+ANYWAY its fixed now and the healer works perfectly now.
+
+--------------TODO-------------
+-Set up thair positions
+Since i have multiple enemys to play deal with it will be easier to just set up the positions for them all at once 
+
+-Get wave system working
+Because once everything is ready to go only then add a wave system that just calls random enemys from the 
+pool and sets thair health and stuff like that. And increases it
+
+-Get highscore working
+Tracks the wave number and then saves it in
+
+-Comments and clean up the code a bit.
+Then finally once everything is working and done, go through the code and add comments and clean it up a bit.
+-------------TODO--------------
+
+
+NOW we set up dymnamic posiuons 
+
+--------------21:34-------------
+
+Spawning in random positions is finished 
+
+
+-------------TODO--------------
+-Get wave system working
+Because once everything is ready to go only then add a wave system that just calls random enemys from the 
+pool and sets thair health and stuff like that. And increases it
+
+-Get highscore working
+Tracks the wave number and then saves it in
+
+-Comments and clean up the code a bit.
+Then finally once everything is working and done, go through the code and add comments and clean it up a bit.
+-------------TODO--------------
+
+Now its onto my least favorite and probably longest part which is the wave system. 
+because i weant it to also dynamically increase the difficulty by increasing the health and stuff like that of the enemys as well as 
+adding more of them in later waves.
+
+like you sart with one enemy brawler and then later on you can get 2 or 3 enemys in one wave and they can be mages and healers as well.
+
+--------------22:47-------------
+I genuanly cant think of any other way to do this other than adding another class to gameElements which i feel is discrasefull. It looks perfect rigth now
+only the most required Things load update and draw but alas sometimes you need to settle and do what you have to do 
+take it to the back of the barn and just end the perfect clean streak.
+
+--------------23:52-------------
+It works. not qute perfect yet but good enough for now. OK yeah its all done now.
+
+-------------TODO--------------
+-Get highscore working
+Tracks the wave number and then saves it in
+
+-Comments and clean up the code a bit.
+Then finally once everything is working and done, go through the code and add comments and clean it up a bit.
+-------------TODO--------------
+
+--------------01:41-------------
+Now all i have left is the comments and clean up. Which is just tedious busywork but its gotta be done. 
+
+--------------03:39-------------
+Finished the comments. not so much with the cleanup but i dont think i have enough Energy to do a full cleanup so im just going to go lighrts out now and call it a day.
+
