@@ -615,53 +615,61 @@ namespace Another_Game_Final_no_fugazy
 
 
                     if (selectedCard != null) // Makes sure youve actually selected a card before trying to activate it
+                    {
                         // Sets the selected card's PosSelectedCard property back to false so that the loop can be restarted
                         pos1[pos1Index].PosSelectedCard = false;
-                    pos2[pos2Index].PosSelectedCard = false;
-                    pos3[pos3Index].PosSelectedCard = false;
+                        pos2[pos2Index].PosSelectedCard = false;
+                        pos3[pos3Index].PosSelectedCard = false;
 
 
-                    if (selectedCard.target == "Self") // If the selected card is a self-targeting card, activate its effect immediately without needing to select an enemy target.
-                    {
-                        switch (selectedCard.name)
+
+
+                        if (selectedCard.target == "Self") // If the selected card is a self-targeting card, activate its effect immediately without needing to select an enemy target.
                         {
-                            case "HealCard":
-                                player.Heal(5 + (currentWave - 1)); // Heals player for a base amount of 5, plus an additional amount based on the current wave to make the heal more effective as the game progresses.
-                                player.HealthBar.UpdateHealth(); // Update the player's health bar to reflect the healing effect.
-                                break;
-                        }
-
-                        player.WaitTurns(); // In case player has a debuff this makes the debuff lose a turn
-
-                        //Checks if each enemy is alive and then passes a turn for them (They have a base number of turns they have to wait before they can perform an action so this passes a turn when you heal.
-                        foreach (CombatEntity enemy in enemys)
-                        {
-                            if (enemy.IsAlive)
+                            switch (selectedCard.name)
                             {
-                                enemy.WaitTurns();
-                                enemy.HealthBar.UpdateHealth();
+                                case "HealCard":
+                                    player.Heal(5 + (currentWave - 1)); // Heals player for a base amount of 5, plus an additional amount based on the current wave to make the heal more effective as the game progresses.
+                                    player.HealthBar.UpdateHealth(); // Update the player's health bar to reflect the healing effect.
+                                    break;
                             }
+
+                            player.WaitTurns(); // In case player has a debuff this makes the debuff lose a turn
+
+                            //Checks if each enemy is alive and then passes a turn for them (They have a base number of turns they have to wait before they can perform an action so this passes a turn when you heal.
+                            foreach (CombatEntity enemy in enemys)
+                            {
+                                if (enemy.IsAlive)
+                                {
+                                    enemy.WaitTurns();
+                                    enemy.HealthBar.UpdateHealth();
+                                }
+                            }
+
+                            if (!player.IsAlive) // If player dies, switch to the highscore state and forces you to enter a name for the highscore entry.
+                            {
+                                HighState = StateHighS.EnterHighScore;
+                                currentState = State.HighScore;
+                            }
+
+
+                            switch (selectedCardPos) // Checks which card position the selected card was in and then randomizes that specific position to give you a new card in that position for the next turn.
+                            {
+                                case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
+                                case 2: pos2Index = randomCardGen.Next(pos2.Length); break;
+                                case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                            }
+
+                            currentPlayPhase = PlayPhase.SelectCard; // Resets you back to the select card phase because you used a self targeting card and dont need to select an enemy.
                         }
 
 
-
-                        switch (selectedCardPos) // Checks which card position the selected card was in and then randomizes that specific position to give you a new card in that position for the next turn.
+                        else if (selectedCard.target == "Enemy") // If the selected card is an enemy-targeting card, switch to the select enemy phase so that the player can choose which enemy to target with the card.
                         {
-                            case 1: pos1Index = randomCardGen.Next(pos1.Length); break;
-                            case 2: pos2Index = randomCardGen.Next(pos2.Length); break;
-                            case 3: pos3Index = randomCardGen.Next(pos3.Length); break;
+                            currentPlayPhase = PlayPhase.SelectEnemy;
+                            break;
                         }
-
-                        currentPlayPhase = PlayPhase.SelectCard; // Resets you back to the select card phase because you used a self targeting card and dont need to select an enemy.
                     }
-
-
-                    else if (selectedCard.target == "Enemy") // If the selected card is an enemy-targeting card, switch to the select enemy phase so that the player can choose which enemy to target with the card.
-                    {
-                        currentPlayPhase = PlayPhase.SelectEnemy;
-                        break;
-                    }
-
                     break;
 
 
